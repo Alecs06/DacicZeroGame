@@ -17,6 +17,7 @@ namespace MBT
                 if (hasTarget.Value)
                 {
                     position.Value = detectionSystem.ClosestTarget.LastKnownPosition;
+                    return;
                 }
                 hasSound.Value = detectionSystem.ClosestSound != null;
                 if (hasSound.Value)
