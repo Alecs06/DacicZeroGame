@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using MBT;
 using UnityEngine;
 using UnityEngine.AI;
-using MBT;
 
 namespace MBTExample
 {
     [AddComponentMenu("")]
-    [MBTNode("Example/Move Navmesh Agent")]
+    [MBTNode("Tasks/Move Navmesh Agent")]
     public class MoveNavmeshAgent : Leaf
     {
         public TransformReference destination;
@@ -23,11 +21,11 @@ namespace MBTExample
             agent.isStopped = false;
             agent.SetDestination(destination.Value.position);
         }
-        
+
         public override NodeResult Execute()
         {
             time += Time.deltaTime;
-            // Update destination every given interval
+            // UpdateEnumerator destination every given interval
             if (time > updateInterval)
             {
                 // Reset time and update destination

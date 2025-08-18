@@ -380,6 +380,7 @@
 "Assets/_Project/Scripts/AI/Detection/SoundMaker.cs"
 "Assets/_Project/Scripts/AI/Detection/TargetData.cs"
 "Assets/_Project/Scripts/AI/MBT/MoveNavmeshAgentPosition.cs"
+"Assets/_Project/Scripts/AI/MBT/ShootGun.cs"
 "Assets/_Project/Scripts/AI/MBT/UpdateTargetsService.cs"
 "Assets/_Project/Scripts/Entities/EntityBase.cs"
 "Assets/_Project/Scripts/Entities/EntityData.cs"
@@ -403,6 +404,7 @@
 "Assets/_Project/Scripts/Utils/Pooling/IPoolable.cs"
 "Assets/_Project/Scripts/Utils/Pooling/MultiPool.cs"
 "Assets/_Project/Scripts/Utils/Utils.cs"
+"Assets/_Project/Scripts/Weapons/BotGun.cs"
 "Assets/_Project/Settings/PlayerControls.cs"
 -langversion:9.0
 /deterministic

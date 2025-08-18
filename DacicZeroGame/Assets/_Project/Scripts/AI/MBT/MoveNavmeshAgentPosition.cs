@@ -4,6 +4,9 @@ using UnityEngine.AI;
 
 namespace MBTExample
 {
+    /// <summary>
+    /// Literally just the Vector3 version of MoveNavmeshAgent.
+    /// </summary>
     [AddComponentMenu("")]
     [MBTNode("Tasks/Move Navmesh Agent To Position")]
     public class MoveNavmeshAgentPosition : Leaf
@@ -11,6 +14,10 @@ namespace MBTExample
         public Vector3Reference destination;
         public NavMeshAgent agent;
         [SerializeField] protected float stopDistance = 2;
+        /// <summary>
+        /// If the difference between the target position and our current destination
+        /// is greater than this, recalculate path.
+        /// </summary>
         [SerializeField] protected float maxError = 0.1f;
 
         public override void OnEnter()
@@ -21,6 +28,7 @@ namespace MBTExample
 
         public override NodeResult Execute()
         {
+            //calculate difference between the target position and our current destination
             float error = Vector3.Magnitude(destination.Value - agent.destination);
             if (error > maxError)
             {

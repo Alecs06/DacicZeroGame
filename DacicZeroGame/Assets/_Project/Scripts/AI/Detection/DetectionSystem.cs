@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Detection
 {
+    /// <summary>
+    /// Detects targets by sight or proximity, and can hear sounds.
+    /// </summary>
     public class DetectionSystem : MonoBehaviour
     {
         #region Parameters
@@ -14,7 +17,7 @@ namespace Detection
         public TargetData ClosestTarget { get; protected set; }
         protected float closestTargetDist;
         public HashSet<SoundData> Sounds { get; } = new();
-        public SoundData ClosestSound { get; protected set; }
+        public SoundData? ClosestSound { get; protected set; }
         protected float closestSoundDist;
         #endregion
         #region Other fields
@@ -28,6 +31,7 @@ namespace Detection
         private void OnDrawGizmosSelected()
         {
             #region Visual 
+            //draw visual cone and range sphere in yellow
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, @params.VisualRange);
 
@@ -51,17 +55,20 @@ namespace Detection
             #endregion
 
             #region Audible
+            //draw audio range sphere in blue
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, @params.AudioRange);
             #endregion
 
             #region Proximity
+            //draw proximity detection range sphere in red
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, @params.ProximityRange);
             #endregion
         }
         private void OnDrawGizmos()
         {
+            //draw a line to each target; color of line depends on target awareness
             foreach (var target in Targets.Values)
             {
                 if (target.LastKnownPosition != null)
@@ -71,6 +78,8 @@ namespace Detection
                 }
             }
 
+            //draw a line to each sound we heard; color of line depends on how
+            //recently the sound was heard
             foreach (var sound in Sounds)
             {
                 Gizmos.color = new Color(0, (@params.TimeToForgetSound - (Time.time - sound.TimeHeard)) / @params.TimeToForgetSound, 0);
@@ -81,18 +90,20 @@ namespace Detection
         #region Setup
         protected void Awake()
         {
+            //cache some stuff
             wait = new WaitForSeconds(@params.UpdateCooldown);
-            targetMask = GlobalSettings.TargetMasks[gameObject.layer];
+            targetMask = GlobalSettings.DetectionMasks[gameObject.layer];
         }
         protected void OnEnable()
         {
+            //add the action to the event bus so we can be notified when sounds happen
             if (!EventBus<SoundEvent>.AddActions(0, HeardSound))
             {
                 Debug.LogError($"{transform} unable to add action to SoundEvent bus.");
             }
             Targets.Clear();
             Sounds.Clear();
-            coroutine = StartCoroutine(enumerator());
+            coroutine = StartCoroutine(UpdateEnumerator());
         }
         protected void OnDisable()
         {
@@ -107,7 +118,7 @@ namespace Detection
         }
         #endregion
         #region Main methods
-        protected IEnumerator enumerator()
+        protected IEnumerator UpdateEnumerator()
         {
             while (true)
             {
@@ -116,6 +127,9 @@ namespace Detection
                 ProcessInformation();
             }
         }
+        /// <summary>
+        /// Detect nearby targets by sight or proximity (hearing is handled separately).
+        /// </summary>
         protected void Detect()
         {
             //gather all nearby targets
@@ -131,10 +145,17 @@ namespace Detection
                     continue;
                 }
                 //check for visual
-                if (!CanSee(tr.position)) continue;
-                Detected(tr);
+                if (CanSee(tr.position))
+                {
+                    Detected(tr);
+                }
             }
         }
+        /// <summary>
+        /// Checks if we can see an object at a position.
+        /// </summary>
+        /// <param name="pos">The position we are checking.</param>
+        /// <returns>True if we can see the position.</returns>
         public bool CanSee(Vector3 pos)
         {
             Vector3 VectorToTarget = pos - transform.position;
@@ -149,6 +170,10 @@ namespace Detection
             }
             return true;
         }
+        /// <summary>
+        /// Add a target to memory, or refresh an old one.
+        /// </summary>
+        /// <param name="target">The object we have detected.</param>
         public void Detected(Transform target)
         {
             TargetData targetData;
@@ -156,23 +181,32 @@ namespace Detection
             {
                 targetData.TimeLastSpotted = Time.time;
                 targetData.Awareness += @params.AwarenessBuildRate;
-                targetData.LastKnownPosition = target.position;
-                targetData.Spotted = true;
             }
             else
             {
                 Targets.Add(target, new TargetData(target));
             }
         }
+        /// <summary>
+        /// Checks if a target should be removed from memory. This should happen if 
+        /// the targeted object is invalid, or if we have lost the target.
+        /// </summary>
+        /// <param name="target">The target we need to check.</param>
+        /// <returns>True if the target should be removed from memory.</returns>
         protected bool Invalid(TargetData target)
         {
             return target.Transform == null ||
                     target.Transform.gameObject == null ||
                     !target.Transform.gameObject.activeSelf ||
                     Time.time - target.TimeLastSpotted > @params.TimeToForgetTarget ||
-                    (CanSee(target.LastKnownPosition) && !target.Spotted && target.Awareness < 0.5f);
+                    (CanSee(target.LastKnownPosition) && target.Awareness < 0.5f);
 
         }
+        /// <summary>
+        /// Go through the target and sound memory, remove elements which are too 
+        /// old, update target awareness, track targets with high awareness, find 
+        /// closest target/sound.
+        /// </summary>
         protected void ProcessInformation()
         {
             #region Targets
@@ -185,7 +219,6 @@ namespace Detection
                     targetsToRemove.Enqueue(target);
                     continue;
                 }
-                target.Spotted = false;
                 if (target.Awareness >= 0.5f)
                 {
                     target.LastKnownPosition = target.Transform.position;
@@ -241,6 +274,11 @@ namespace Detection
             }
             #endregion
         }
+        /// <summary>
+        /// Fires when we hear a sound. If the sound is close enough and not made 
+        /// by a friend, add it to memory.
+        /// </summary>
+        /// <param name="soundEvent">The sound we heard.</param>
         public void HeardSound(SoundEvent soundEvent)
         {
             //this sound was made by a friend
