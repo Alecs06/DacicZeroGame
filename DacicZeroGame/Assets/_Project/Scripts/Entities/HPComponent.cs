@@ -7,7 +7,7 @@ namespace Entity
     public class HPComponent : MonoBehaviour
     {
         [field: SerializeField] public int MaxHealth { get; set; }
-        public int CurrentHealth { get; set; }
+        [field: SerializeField] public int CurrentHealth { get; protected set; }
         /// <summary>
         /// Fires when this entity dies.
         /// </summary>

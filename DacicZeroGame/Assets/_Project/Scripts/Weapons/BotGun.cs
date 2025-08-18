@@ -25,6 +25,7 @@ public class BotGun : MonoBehaviour
     /// how much time the gun needs between shots
     /// </summary>
     [SerializeField] protected float shotCooldown;
+    [SerializeField] protected int damage = 1;
     #endregion
     #region Other fields
     /// <summary>
@@ -108,7 +109,7 @@ public class BotGun : MonoBehaviour
             Debug.DrawLine(transform.position, hit.point);
             //raise a damage event for whatever we hit
             EventBus<TakeDamage>.Raise(hit.transform.root.GetInstanceID(),
-                new TakeDamage(1, transform.root, hit.collider));
+                new TakeDamage(damage, transform.root, hit.collider));
         }
         else
         {
