@@ -4771,7 +4771,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4583501436427864276, guid: ef759db04ea799e43bae9391bd16fa71, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.005256
+      value: 27.48
       objectReference: {fileID: 0}
     - target: {fileID: 4583501436427864276, guid: ef759db04ea799e43bae9391bd16fa71, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4779,7 +4779,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4583501436427864276, guid: ef759db04ea799e43bae9391bd16fa71, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 47.55
+      value: 25.92
       objectReference: {fileID: 0}
     - target: {fileID: 4583501436427864276, guid: ef759db04ea799e43bae9391bd16fa71, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4808,6 +4808,10 @@ PrefabInstance:
     - target: {fileID: 4583501436427864276, guid: ef759db04ea799e43bae9391bd16fa71, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4835473798990928266, guid: ef759db04ea799e43bae9391bd16fa71, type: 3}
+      propertyPath: <MaxHealth>k__BackingField
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5778261875785697884, guid: ef759db04ea799e43bae9391bd16fa71, type: 3}
       propertyPath: m_Name

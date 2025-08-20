@@ -13,7 +13,7 @@ namespace PlayerController
         [field: SerializeField] public bool Grounded { get; protected set; }
         [SerializeField] bool onSlope;
         RaycastHit slopeHit;
-        Vector2 inputVector;
+        [SerializeField] Vector2 inputVector;
         #endregion
 
         private void Awake()
