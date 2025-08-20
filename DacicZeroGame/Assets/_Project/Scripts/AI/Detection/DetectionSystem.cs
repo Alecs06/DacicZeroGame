@@ -200,7 +200,6 @@ namespace Detection
                     !target.Transform.gameObject.activeSelf ||
                     Time.time - target.TimeLastSpotted > @params.TimeToForgetTarget ||
                     (CanSee(target.LastKnownPosition) && target.Awareness < 0.5f);
-
         }
         /// <summary>
         /// Go through the target and sound memory, remove elements which are too 

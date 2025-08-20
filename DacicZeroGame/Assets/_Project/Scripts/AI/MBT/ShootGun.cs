@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using Weapons;
 namespace MBT
 {
     [AddComponentMenu("")]
