@@ -28,6 +28,7 @@ GameObject:
   - component: {fileID: 6261866373614125566}
   - component: {fileID: 551986801753268547}
   - component: {fileID: 4617278234089736786}
+  - component: {fileID: 8632566927503515373}
   m_Layer: 7
   m_Name: BT
   m_TagString: Untagged
@@ -569,8 +570,21 @@ MonoBehaviour:
   runtimePriority: 0
   breakpoint: 0
   agent: {fileID: 2979946888789159561}
-  patrolPoints: []
+  brain: {fileID: 8632566927503515373}
   currentPatrolPoint: 0
+--- !u!114 &8632566927503515373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718131105888259393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdead3fb291125e49a00329709328467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PatrolPoints: []
 --- !u!1 &2396344530290643805
 GameObject:
   m_ObjectHideFlags: 0

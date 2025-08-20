@@ -383,6 +383,7 @@
 "Assets/_Project/Scripts/AI/MBT/PatrolTask.cs"
 "Assets/_Project/Scripts/AI/MBT/ShootGun.cs"
 "Assets/_Project/Scripts/AI/MBT/UpdateTargetsService.cs"
+"Assets/_Project/Scripts/AI/PatrolBrain.cs"
 "Assets/_Project/Scripts/Global/GlobalSettings.cs"
 "Assets/_Project/Scripts/HPSystem/HPComponent.cs"
 "Assets/_Project/Scripts/HPSystem/Sample/DamageDealer.cs"

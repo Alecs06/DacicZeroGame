@@ -8,27 +8,25 @@ namespace MBT
     public class PatrolTask : Leaf
     {
         [SerializeField] NavMeshAgent agent;
-        [SerializeField] Transform[] patrolPoints;
-        [SerializeField] int currentPatrolPoint;
+        [SerializeField] PatrolBrain brain;
+        [SerializeField] int currentPatrolPoint = 0;
         public override void OnEnter()
         {
             base.OnEnter();
             agent.isStopped = false;
-            if (patrolPoints.Length > 0)
+            if (brain.PatrolPoints.Length > 0)
             {
-                currentPatrolPoint = 0;
-                agent.SetDestination(patrolPoints[currentPatrolPoint].position);
-
+                agent.SetDestination(brain.PatrolPoints[currentPatrolPoint].position);
             }
         }
         public override NodeResult Execute()
         {
-            if (patrolPoints.Length > 1)
+            if (brain.PatrolPoints.Length > 1)
             {
                 if (agent.remainingDistance <= agent.stoppingDistance)
                 {
-                    currentPatrolPoint = (currentPatrolPoint + 1) % patrolPoints.Length;
-                    agent.SetDestination(patrolPoints[currentPatrolPoint].position);
+                    currentPatrolPoint = (currentPatrolPoint + 1) % brain.PatrolPoints.Length;
+                    agent.SetDestination(brain.PatrolPoints[currentPatrolPoint].position);
                 }
             }
             return NodeResult.running;
