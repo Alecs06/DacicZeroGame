@@ -5,11 +5,11 @@ namespace Detection
     public struct SoundEvent : IEvent
     {
         /// <summary>
-        /// How loud was the sound;
+        /// How loud was the audioClip;
         /// </summary>
         public float Intensity;
         /// <summary>
-        /// Where did the sound originate?
+        /// Where did the audioClip originate?
         /// </summary>
         public Vector3 Position;
         /// <summary>
@@ -27,11 +27,11 @@ namespace Detection
     public struct SoundData
     {
         /// <summary>
-        /// How loud was the sound;
+        /// How loud was the audioClip;
         /// </summary>
         public float Intensity;
         /// <summary>
-        /// Where did the sound originate?
+        /// Where did the audioClip originate?
         /// </summary>
         public Vector3 Position;
         /// <summary>
@@ -39,7 +39,7 @@ namespace Detection
         /// </summary>
         public int Team;
         /// <summary>
-        /// When did we hear this sound?
+        /// When did we hear this audioClip?
         /// </summary>
         public float TimeHeard;
         public SoundData(float intensity, Vector3 position, int team)

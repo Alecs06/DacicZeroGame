@@ -7,7 +7,7 @@ namespace Weapons
         [SerializeField] protected float cooldown;
         [field: SerializeField] public bool Firing { get; set; }
         protected float timeLastShot = -1;
-        protected void Update()
+        protected virtual void Update()
         {
             if (Firing)
             {

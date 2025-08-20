@@ -21,8 +21,8 @@ namespace EventBus
 
         public void Invoke(T @event)
         {
-            onEvent.Invoke(@event);
-            onEventNoArgs.Invoke();
+            onEvent?.Invoke(@event);
+            onEventNoArgs?.Invoke();
         }
 
         public void Clear()

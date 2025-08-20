@@ -25,7 +25,7 @@ namespace Detection
         /// </summary>
         [field: SerializeField] public float AwarenessLossRate { get; protected set; }
         /// <summary>
-        /// How long does it take for the critter to forget a sound.
+        /// How long does it take for the critter to forget a audioClip.
         /// </summary>
         [field: SerializeField] public float TimeToForgetSound { get; protected set; }
         /// <summary>

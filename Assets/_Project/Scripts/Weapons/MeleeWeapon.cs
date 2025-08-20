@@ -20,7 +20,6 @@ namespace Weapons
             animancer.Play(clip).Time = 0;
             Collider[] colliders = new Collider[10];
             int nrOfHits = Physics.OverlapSphereNonAlloc(transform.position + dist * transform.forward, radius, colliders, GlobalSettings.TargetMasks[gameObject.layer]);
-            Debug.Log(nrOfHits);
             HashSet<Transform> hits = new();
             for (int i = 0; i < nrOfHits; i++)
             {

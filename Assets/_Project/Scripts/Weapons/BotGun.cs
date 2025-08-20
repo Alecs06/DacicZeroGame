@@ -23,6 +23,9 @@ namespace Weapons
         /// </summary>
         [SerializeField] protected float accDecay;
         [SerializeField] protected int damage = 1;
+        [Tooltip("Cosmetic stuff")]
+        [SerializeField] protected AudioClip audioClip;
+        [SerializeField] protected float lineDuration;
         #endregion
         #region Other fields
         /// <summary>
@@ -51,42 +54,63 @@ namespace Weapons
         /// Cached value from global settings. -||-
         /// </summary>
         float maxRaycastDist;
+        protected AudioSource audioSource;
+        protected LineRenderer lineRenderer;
         #endregion
         #region Setup
         private void Awake()
         {
+            lineRenderer = GetComponent<LineRenderer>();
+            audioSource = GetComponent<AudioSource>();
             maxRaycastDist = GlobalSettings.MaxRaycastDist;
         }
         protected override void OnEnable()
         {
             base.OnEnable();
+            lineRenderer.enabled = false;
             currentError = maxError;
         }
         #endregion
         #region Main methods
+        protected override void Update()
+        {
+            base.Update();
+            if (lineRenderer.enabled)
+            {
+                if (Time.time - timeLastShot >= lineDuration)
+                {
+                    lineRenderer.enabled = false;
+                }
+            }
+        }
         protected override void Fire()
         {
             //reset the cooldown of the gun
             timeLastShot = Time.time;
             Vector3 dir = transform.forward;
+            lineRenderer.enabled = true;
+            audioSource.PlayOneShot(audioClip);
             if (currentError > 0)
             {
                 float a = Random.Range(0, 360);
-                dir += (transform.right * Mathf.Cos(a) + transform.up * Mathf.Sin(a)) * currentError;
+                dir += (transform.right * Mathf.Cos(a) + transform.up *
+                    Mathf.Sin(a)) * currentError;
                 //Debug.DrawRay(transform.position, dir, Color.blue, 10);
             }
             if (Physics.Raycast(transform.position, dir, out hit, maxRaycastDist,
                 GlobalSettings.TargetMasks[gameObject.layer]))
             {
                 //we hit something, damage it
-                Debug.DrawLine(transform.position, hit.point);
+                lineRenderer.SetPositions(new Vector3[2] { transform.position,
+                    hit.point });
                 //raise a damage event for whatever we hit
                 EventBus<TakeDamage>.Raise(hit.transform.root.GetInstanceID(),
                     new TakeDamage(damage, transform.root, hit.collider));
             }
             else
             {
-                Debug.DrawRay(transform.position, dir * maxRaycastDist);
+                lineRenderer.SetPositions(new Vector3[2] { transform.position,
+                    transform.position + dir * maxRaycastDist });
             }
             //accuracy increases while firing
             currentError -= accBuildUp * cooldown;

@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf777a18e226a5d44b06fe65f6599dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 2
+  cooldown: 1
   <Firing>k__BackingField: 0
   clip: {fileID: 7400000, guid: 6ffc3fee10117ca43b524b4439eb840b, type: 2}
   radius: 0.5
@@ -748,6 +748,7 @@ MonoBehaviour:
   groundCheckPoint: {fileID: 3741848804775637333}
   <Grounded>k__BackingField: 0
   onSlope: 0
+  inputVector: {x: 0, y: 0}
 --- !u!114 &8672219811969518626
 MonoBehaviour:
   m_ObjectHideFlags: 0

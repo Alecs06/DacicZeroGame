@@ -78,8 +78,8 @@ namespace Detection
                 }
             }
 
-            //draw a line to each sound we heard; color of line depends on how
-            //recently the sound was heard
+            //draw a line to each audioClip we heard; color of line depends on how
+            //recently the audioClip was heard
             foreach (var sound in Sounds)
             {
                 Gizmos.color = new Color(0, (@params.TimeToForgetSound - (Time.time - sound.TimeHeard)) / @params.TimeToForgetSound, 0);
@@ -202,9 +202,9 @@ namespace Detection
                     (CanSee(target.LastKnownPosition) && target.Awareness < 0.5f);
         }
         /// <summary>
-        /// Go through the target and sound memory, remove elements which are too 
+        /// Go through the target and audioClip memory, remove elements which are too 
         /// old, update target awareness, track targets with high awareness, find 
-        /// closest target/sound.
+        /// closest target/audioClip.
         /// </summary>
         protected void ProcessInformation()
         {
@@ -274,15 +274,15 @@ namespace Detection
             #endregion
         }
         /// <summary>
-        /// Fires when we hear a sound. If the sound is close enough and not made 
+        /// Fires when we hear a audioClip. If the audioClip is close enough and not made 
         /// by a friend, add it to memory.
         /// </summary>
-        /// <param name="soundEvent">The sound we heard.</param>
+        /// <param name="soundEvent">The audioClip we heard.</param>
         public void HeardSound(SoundEvent soundEvent)
         {
-            //this sound was made by a friend
+            //this audioClip was made by a friend
             if (soundEvent.Team == gameObject.layer) return;
-            //this sound is too far away
+            //this audioClip is too far away
             if (soundEvent.Intensity + @params.AudioRange < Vector3.Distance(transform.position, soundEvent.Position)) return;
             Sounds.Add(new SoundData(soundEvent));
         }
