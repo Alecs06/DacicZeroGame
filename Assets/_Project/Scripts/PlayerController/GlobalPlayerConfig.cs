@@ -7,11 +7,11 @@ public static class GlobalPlayerConfig
     /// <summary>
     /// How fast can the player move.
     /// </summary>
-    public static float PlayerSpeed { get; set; } = 10;
+    public static float PlayerSpeed { get; set; } = 4;
     /// <summary>
     /// How much force to apply when jumping.
     /// </summary>
-    public static float JumpForce { get; set; } = 10;
+    public static float JumpForce { get; set; } = 12;
     /// <summary>
     /// How much gravity to apply downwards when not grounded.
     /// </summary>
