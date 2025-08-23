@@ -1,3 +1,4 @@
+using AI;
 using UnityEngine;
 using UnityEngine.AI;
 namespace MBT
@@ -8,7 +9,7 @@ namespace MBT
     public class PatrolTask : Leaf
     {
         [SerializeField] NavMeshAgent agent;
-        [SerializeField] PatrolBrain brain;
+        [SerializeField] TacticalBrain brain;
         [SerializeField] int currentPatrolPoint = 0;
         public override void OnEnter()
         {
