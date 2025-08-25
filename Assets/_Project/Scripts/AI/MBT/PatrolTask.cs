@@ -15,14 +15,14 @@ namespace MBT
         {
             base.OnEnter();
             agent.isStopped = false;
-            if (brain.PatrolPoints.Length > 0)
+            if (brain.PatrolPoints != null && brain.PatrolPoints.Length > 0)
             {
                 agent.SetDestination(brain.PatrolPoints[currentPatrolPoint].position);
             }
         }
         public override NodeResult Execute()
         {
-            if (brain.PatrolPoints.Length > 1)
+            if (brain.PatrolPoints != null && brain.PatrolPoints.Length > 1)
             {
                 if (agent.remainingDistance <= agent.stoppingDistance)
                 {

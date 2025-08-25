@@ -135,19 +135,20 @@ namespace Detection
             //gather all nearby targets
             int targetCount = Physics.OverlapSphereNonAlloc(transform.position,
                 @params.VisualRange, targetBuffer, targetMask);
+            HashSet<int> transformSet = new();
             for (int i = 0; i < targetCount; i++)
             {
                 var tr = targetBuffer[i].transform.root;
-                //check for proximity
-                if (Vector3.Distance(transform.position, tr.position) <= @params.ProximityRange)
+                //make sure we don't detect something twice if it has multiple colliders
+                if (transformSet.Add(tr.GetInstanceID()))
                 {
-                    Detected(tr);
-                    continue;
-                }
-                //check for visual
-                if (CanSee(tr.position))
-                {
-                    Detected(tr);
+                    //check for proximity or visual
+                    if (Vector3.Distance(transform.position, tr.position) <=
+                        @params.ProximityRange || CanSee(tr.position))
+                    {
+                        Detected(tr);
+                        continue;
+                    }
                 }
             }
         }
