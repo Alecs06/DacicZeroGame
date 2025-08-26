@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
 namespace MBT
@@ -20,7 +18,7 @@ namespace MBT
         public Vector3Reference vector3Reference = new Vector3Reference();
         public Vector2Reference vector2Reference = new Vector2Reference();
 
-        public TransformEvent  transformEvent;
+        public TransformEvent transformEvent;
         public GameObjectEvent gameObjectEvent;
         public FloatEvent floatEvent;
         public IntEvent intEvent;
@@ -33,21 +31,29 @@ namespace MBT
         {
             switch (type)
             {
-                case EventType.Transform: transformEvent.Invoke(transformReference.Value);
+                case EventType.Transform:
+                    transformEvent.Invoke(transformReference.Value);
                     break;
-                case EventType.Float: floatEvent.Invoke(floatReference.Value);
+                case EventType.Float:
+                    floatEvent.Invoke(floatReference.Value);
                     break;
-                case EventType.Bool: boolEvent.Invoke(boolReference.Value);
+                case EventType.Bool:
+                    boolEvent.Invoke(boolReference.Value);
                     break;
-                case EventType.String: stringEvent.Invoke(stringReference.Value);
+                case EventType.String:
+                    stringEvent.Invoke(stringReference.Value);
                     break;
-                case EventType.Vector3: vector3Event.Invoke(vector3Reference.Value);
+                case EventType.Vector3:
+                    vector3Event.Invoke(vector3Reference.Value);
                     break;
-                case EventType.Vector2: vector2Event.Invoke(vector2Reference.Value);
+                case EventType.Vector2:
+                    vector2Event.Invoke(vector2Reference.Value);
                     break;
-                case EventType.Int: intEvent.Invoke(intReference.Value);
+                case EventType.Int:
+                    intEvent.Invoke(intReference.Value);
                     break;
-                case EventType.GameObject: gameObjectEvent.Invoke(gameObjectReference.Value);
+                case EventType.GameObject:
+                    gameObjectEvent.Invoke(gameObjectReference.Value);
                     break;
             }
             return NodeResult.success;
@@ -74,13 +80,13 @@ namespace MBT
             Transform, GameObject, Float, Int, Bool, String, Vector3, Vector2
         }
 
-        [System.Serializable] public class TransformEvent : UnityEvent<Transform>{}
-        [System.Serializable] public class GameObjectEvent : UnityEvent<GameObject>{}
-        [System.Serializable] public class FloatEvent : UnityEvent<float>{}
-        [System.Serializable] public class IntEvent : UnityEvent<int>{}
-        [System.Serializable] public class BoolEvent : UnityEvent<bool>{}
-        [System.Serializable] public class StringEvent : UnityEvent<string>{}
-        [System.Serializable] public class Vector3Event : UnityEvent<Vector3>{}
-        [System.Serializable] public class Vector2Event : UnityEvent<Vector2>{}
+        [System.Serializable] public class TransformEvent : UnityEvent<Transform> { }
+        [System.Serializable] public class GameObjectEvent : UnityEvent<GameObject> { }
+        [System.Serializable] public class FloatEvent : UnityEvent<float> { }
+        [System.Serializable] public class IntEvent : UnityEvent<int> { }
+        [System.Serializable] public class BoolEvent : UnityEvent<bool> { }
+        [System.Serializable] public class StringEvent : UnityEvent<string> { }
+        [System.Serializable] public class Vector3Event : UnityEvent<Vector3> { }
+        [System.Serializable] public class Vector2Event : UnityEvent<Vector2> { }
     }
 }
