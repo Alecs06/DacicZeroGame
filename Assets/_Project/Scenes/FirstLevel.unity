@@ -578,6 +578,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bot (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7766379108726240151, guid: 1b9a4173c844fc54e94f41053e6d16e1, type: 3}
+      propertyPath: PatrolPoints.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7766379108726240151, guid: 1b9a4173c844fc54e94f41053e6d16e1, type: 3}
+      propertyPath: PatrolPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 662098798}
+    - target: {fileID: 7766379108726240151, guid: 1b9a4173c844fc54e94f41053e6d16e1, type: 3}
+      propertyPath: PatrolPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 175776829}
     - target: {fileID: 8632566927503515373, guid: 1b9a4173c844fc54e94f41053e6d16e1, type: 3}
       propertyPath: PatrolPoints.Array.size
       value: 2
@@ -2586,6 +2598,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bot
       objectReference: {fileID: 0}
+    - target: {fileID: 7766379108726240151, guid: 1b9a4173c844fc54e94f41053e6d16e1, type: 3}
+      propertyPath: PatrolPoints.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7766379108726240151, guid: 1b9a4173c844fc54e94f41053e6d16e1, type: 3}
+      propertyPath: PatrolPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 662098798}
+    - target: {fileID: 7766379108726240151, guid: 1b9a4173c844fc54e94f41053e6d16e1, type: 3}
+      propertyPath: PatrolPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 1958916493}
     - target: {fileID: 8632566927503515373, guid: 1b9a4173c844fc54e94f41053e6d16e1, type: 3}
       propertyPath: PatrolPoints.Array.size
       value: 2
@@ -4874,6 +4898,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bot (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7766379108726240151, guid: 1b9a4173c844fc54e94f41053e6d16e1, type: 3}
+      propertyPath: PatrolPoints.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7766379108726240151, guid: 1b9a4173c844fc54e94f41053e6d16e1, type: 3}
+      propertyPath: PatrolPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 1401086443}
+    - target: {fileID: 7766379108726240151, guid: 1b9a4173c844fc54e94f41053e6d16e1, type: 3}
+      propertyPath: PatrolPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 1958916493}
     - target: {fileID: 8632566927503515373, guid: 1b9a4173c844fc54e94f41053e6d16e1, type: 3}
       propertyPath: PatrolPoints.Array.size
       value: 2

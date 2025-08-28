@@ -293,6 +293,7 @@ Transform:
   m_Children:
   - {fileID: 685811877318736729}
   - {fileID: 2419607994937352883}
+  - {fileID: 5766331725589260871}
   m_Father: {fileID: 4583501436427864276}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3540380508456396512
@@ -764,6 +765,7 @@ MonoBehaviour:
   inputReader: {fileID: 11400000, guid: be09657888a79554f8b2e7a8931f0bba, type: 2}
   weapons:
   - {fileID: 4229722006637619729}
+  - {fileID: 3644021617557294592}
 --- !u!114 &3464305454432268230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1092,6 +1094,54 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &8282551703606491229
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5766331725589260871}
+  - component: {fileID: 3644021617557294592}
+  m_Layer: 6
+  m_Name: Flash
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5766331725589260871
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8282551703606491229}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6776431533047406821}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3644021617557294592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8282551703606491229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de430c809773a64099eaa65ab688217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 2
+  <Firing>k__BackingField: 0
+  prefab: {fileID: 8140405007356546083, guid: 12c2d356cc9dad74e8a94e6c29666f3b, type: 3}
+  ammo: 1
 --- !u!1 &8484614081420394181
 GameObject:
   m_ObjectHideFlags: 0

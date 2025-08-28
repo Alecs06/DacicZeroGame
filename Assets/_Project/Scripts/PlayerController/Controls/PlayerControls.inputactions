@@ -42,9 +42,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Attack",
+                    "name": "Melee",
                     "type": "Button",
                     "id": "92130fa6-94e4-4f6b-a18f-fff168fae359",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Flashbang",
+                    "type": "Button",
+                    "id": "11d0aba4-0b58-4c0e-a734-800fd29ed5b1",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -147,7 +156,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack",
+                    "action": "Melee",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "53dc4216-fe39-4f47-a323-ec904e7d2017",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Flashbang",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

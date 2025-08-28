@@ -54,14 +54,6 @@ namespace PlayerController
                 Jump.Invoke();
             }
         }
-        public void OnWeapon0(InputAction.CallbackContext context)
-        {
-            Weapon.Invoke(context, 0);
-        }
-        public void OnWeapon1(InputAction.CallbackContext context)
-        {
-            Weapon.Invoke(context, 1);
-        }
         public void OnInteract(InputAction.CallbackContext context)
         {
             if (context.started)
@@ -70,9 +62,14 @@ namespace PlayerController
             }
         }
 
-        public void OnAttack(InputAction.CallbackContext context)
+        public void OnMelee(InputAction.CallbackContext context)
         {
             Weapon.Invoke(context, 0);
+        }
+
+        public void OnFlashbang(InputAction.CallbackContext context)
+        {
+            Weapon.Invoke(context, 1);
         }
     }
 }
