@@ -3,6 +3,7 @@ using UnityEngine;
 
 public static class GlobalSettings
 {
+    #region AI stuff
     /// <summary>
     /// What layers should each team check? Bots should check for humies and viceversa.
     /// </summary>
@@ -22,8 +23,14 @@ public static class GlobalSettings
     /// Maximum number of targets AI detection should gather.
     /// </summary>
     public static int MaxTargets { get; private set; } = 20;
+    #endregion
+    #region Pew pew stuff
     /// <summary>
     /// How far should raycasts go when shooting?
     /// </summary>
     public static float MaxRaycastDist { get; } = 100;
+    #endregion
+    #region NPC stuff
+    public static float SkillDiffCoefficient { get; private set; } = 0.2f;
+    #endregion
 }
