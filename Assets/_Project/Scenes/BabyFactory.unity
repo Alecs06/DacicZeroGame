@@ -164,12 +164,14 @@ MonoBehaviour:
       Weight: 1
     <SuccessProbability>k__BackingField: 0
   skills:
-  - Skills:
+  - description: Cannon fodder 1
+    Skills:
     - <Type>k__BackingField: 1
       <Level>k__BackingField: 1
     - <Type>k__BackingField: 0
       <Level>k__BackingField: 0
-  - Skills:
+  - description: Cannon fodder 2
+    Skills:
     - <Type>k__BackingField: 0
       <Level>k__BackingField: 1
     - <Type>k__BackingField: 1

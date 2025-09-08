@@ -94,10 +94,6 @@ namespace NPC
                     }
                 }
             }
-            foreach (var s in inputSkills)
-            {
-                Debug.Log(s);
-            }
             return GetSuccessProbability(inputSkills);
         }
     }
