@@ -12,10 +12,6 @@ public class TaskTest : MonoBehaviour
         if (calculate)
         {
             calculate = false;
-            for (int i = 0; i < skills.Count; i++)
-            {
-                Debug.Log(skills[i]);
-            }
             task.AssignCharacters(skills);
         }
     }
