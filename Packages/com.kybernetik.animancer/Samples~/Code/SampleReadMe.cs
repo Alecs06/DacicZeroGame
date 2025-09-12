@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2024 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
 
 #pragma warning disable CS0649 // Field is never assigned to, and will always have its default value.
 
@@ -27,6 +27,7 @@ namespace Animancer.Samples
         private string _Text;
 
         /************************************************************************************************************************/
+
 #if UNITY_IMGUI
         /************************************************************************************************************************/
 
@@ -265,60 +266,6 @@ namespace Animancer.Samples
         
         /************************************************************************************************************************/
 #endif
-        /************************************************************************************************************************/
-        #region Unity Modules
-        /************************************************************************************************************************/
-
-        /// <summary>Returns an error message about a missing Unity module.</summary>
-        [HideInCallstack]
-        public static void LogMissingModuleError(string name, string url, Object context)
-            => Debug.LogError(
-                $"{context.GetType().Name} requires Unity's '{name}'" +
-                $" module to be enabled in the Package Manager. {url}",
-                context);
-
-#if !UNITY_AUDIO
-        /// <summary>An error message about the 'Audio' module being missing.</summary>
-        [HideInCallstack]
-        public static void LogMissingAudioModuleError(Object context)
-            => LogMissingModuleError(
-                "Audio",
-                "https://docs.unity3d.com/ScriptReference/UnityEngine.AudioModule.html",
-                context);
-#endif
-
-#if !UNITY_JSON_SERIALIZE
-        /// <summary>An error message about the 'JSON Serialize' module being missing.</summary>
-        [HideInCallstack]
-        public static void LogMissingJsonSerializeModuleError(Object context)
-            => LogMissingModuleError(
-                "JSON Serialize",
-                "https://docs.unity3d.com/ScriptReference/UnityEngine.JSONSerializeModule.html",
-                context);
-#endif
-
-#if !UNITY_PHYSICS_3D
-        /// <summary>An error message about the 'Physics' module being missing.</summary>
-        [HideInCallstack]
-        public static void LogMissingPhysics3DModuleError(Object context)
-            => LogMissingModuleError(
-                "Physics",
-                "https://docs.unity3d.com/ScriptReference/UnityEngine.PhysicsModule.html",
-                context);
-#endif
-
-#if !UNITY_UGUI
-        /// <summary>An error message about the 'Unity UI' module being missing.</summary>
-        [HideInCallstack]
-        public static void LogMissingUnityUIModuleError(Object context)
-            => LogMissingModuleError(
-                "Unity UGUI",
-                "https://docs.unity3d.com/Packages/com.unity.ugui@1.0/manual/index.html",
-                context);
-#endif
-
-        /************************************************************************************************************************/
-        #endregion
         /************************************************************************************************************************/
     }
 }

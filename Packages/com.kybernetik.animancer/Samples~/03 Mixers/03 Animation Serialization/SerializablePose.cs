@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2024 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
 
 #if ! UNITY_EDITOR
 #pragma warning disable CS0618 // Type or member is obsolete (for TransitionLibraries in Animancer Lite).
@@ -91,38 +91,52 @@ namespace Animancer.Samples.Mixers
 
         public void ApplyTo(AnimancerComponent animancer, StringReference speedParameter)
         {
-            AnimancerLayer layer = animancer.Layers[0];
-            layer.Stop();
-            layer.Weight = 1;
-
-            AnimancerState firstState = null;
-
-            for (int i = _States.Count - 1; i >= 0; i--)
+            float weightlessThreshold = AnimancerLayer.WeightlessThreshold;
+            try
             {
-                StateData stateData = _States[i];
-                if (!animancer.Graph.Transitions.TryGetTransition(
-                    stateData.index,
-                    out TransitionModifierGroup transition))
+                AnimancerLayer.WeightlessThreshold = 0;
+
+                AnimancerLayer layer = animancer.Layers[0];
+                layer.Stop();
+                layer.Weight = 1;
+
+                AnimancerState firstState = null;
+
+                for (int i = _States.Count - 1; i >= 0; i--)
                 {
-                    Debug.LogError(
-                        $"Transition Library '{animancer.Transitions}'" +
-                        $" doesn't contain transition index {stateData.index}.",
-                        animancer);
-                    continue;
+                    StateData stateData = _States[i];
+                    if (!animancer.Graph.Transitions.TryGetTransition(
+                        stateData.index,
+                        out TransitionModifierGroup transition))
+                    {
+                        Debug.LogError(
+                            $"Transition Library '{animancer.Transitions}'" +
+                            $" doesn't contain transition index {stateData.index}.",
+                            animancer);
+                        continue;
+                    }
+
+                    AnimancerState state = layer.GetOrCreateState(transition.Transition);
+
+                    if (state.Weight != 0)
+                        state = layer.GetOrCreateWeightlessState(state);
+
+                    state.IsPlaying = true;
+                    state.Time = stateData.time;
+                    state.SetWeight(stateData.weight);
+
+                    if (i == 0)
+                        firstState = state;
                 }
 
-                AnimancerState state = layer.GetOrCreateState(transition.Transition);
-                state.IsPlaying = true;
-                state.Time = stateData.time;
-                state.SetWeight(stateData.weight);
+                layer.Play(firstState, _RemainingFadeDuration);
 
-                if (i == 0)
-                    firstState = state;
+                animancer.Parameters.SetValue(speedParameter, _SpeedParameter);
             }
-
-            layer.Play(firstState, _RemainingFadeDuration);
-
-            animancer.Parameters.SetValue(speedParameter, _SpeedParameter);
+            finally
+            {
+                AnimancerLayer.WeightlessThreshold = weightlessThreshold;
+            }
         }
 
         /************************************************************************************************************************/

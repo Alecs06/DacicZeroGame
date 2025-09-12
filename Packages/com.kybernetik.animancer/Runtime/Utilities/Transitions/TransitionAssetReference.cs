@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2024 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
 
 using System;
 using System.Collections.Generic;
@@ -47,47 +47,85 @@ namespace Animancer
         /************************************************************************************************************************/
 
         /// <inheritdoc/>
-        object IWrapper.WrappedObject => _Asset;
+        object IWrapper.WrappedObject
+            => _Asset;
 
         /************************************************************************************************************************/
 
         /// <summary>Can this transition create a valid <see cref="AnimancerState"/>?</summary>
-        public virtual bool IsValid => _Asset.IsValid();
+        public virtual bool IsValid
+            => _Asset.IsValid();
 
         /// <inheritdoc/>
-        public virtual float FadeDuration => _Asset.FadeDuration;
+        public virtual float FadeDuration
+            => _Asset != null
+            ? _Asset.FadeDuration
+            : 0;
 
         /// <inheritdoc/>
-        public virtual object Key => _Asset.Key;
+        public virtual object Key
+            => _Asset != null
+            ? _Asset.Key
+            : null;
 
         /// <inheritdoc/>
-        public virtual FadeMode FadeMode => _Asset.FadeMode;
+        public virtual FadeMode FadeMode
+            => _Asset != null
+            ? _Asset.FadeMode
+            : default;
 
         /// <inheritdoc/>
-        public bool IsLooping => _Asset.IsLooping;
+        public bool IsLooping
+            => _Asset != null
+            && _Asset.IsLooping;
 
         /// <inheritdoc/>
         public float NormalizedStartTime
         {
-            get => _Asset.NormalizedStartTime;
-            set => _Asset.NormalizedStartTime = value;
+            get => _Asset != null
+                ? _Asset.NormalizedStartTime
+                : float.NaN;
+            set => _Asset.NormalizedStartTime = value;// No null check. Don't silently ignore commands.
         }
 
         /// <inheritdoc/>
-        public float MaximumDuration => _Asset.MaximumDuration;
+        public float MaximumDuration
+            => _Asset != null
+            ? _Asset.MaximumDuration
+            : 0;
 
         /// <inheritdoc/>
         public float Speed
         {
-            get => _Asset.Speed;
-            set => _Asset.Speed = value;
+            get => _Asset != null
+                ? _Asset.Speed
+                : 1;
+            set => _Asset.Speed = value;// No null check. Don't silently ignore commands.
         }
 
-        /// <inheritdoc/>
-        public virtual AnimancerState CreateState() => _Asset.CreateState();
+        /************************************************************************************************************************/
 
         /// <inheritdoc/>
-        public virtual void Apply(AnimancerState state) => _Asset.Apply(state);
+        [Obsolete(TransitionAssetBase.ObsoleteEventsMessage)]
+        public AnimancerEvent.Sequence Events
+            => _Asset != null
+            ? _Asset.Events
+            : null;
+
+        /// <inheritdoc/>
+        [Obsolete(TransitionAssetBase.ObsoleteEventsMessage)]
+        public ref AnimancerEvent.Sequence.Serializable SerializedEvents
+            => ref _Asset.SerializedEvents;
+
+        /************************************************************************************************************************/
+
+        /// <inheritdoc/>
+        public virtual AnimancerState CreateState()
+            => _Asset.CreateState();
+
+        /// <inheritdoc/>
+        public virtual void Apply(AnimancerState state)
+            => _Asset.Apply(state);
 
         /************************************************************************************************************************/
 

@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2024 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
 
 using UnityEngine.Playables;
 
@@ -31,9 +31,10 @@ namespace Animancer
     /// 
     ///     public void SetWeight(float weight)
     ///     {
+    ///         // Change something that would be reset.
     ///         _Rig.weight = weight;
     ///         
-    ///         // Call this after changing something in the rig that would be reset.
+    ///         // Then call this afterwards.
     ///         _OutputRefresher.Refresh();
     ///     }
     /// }

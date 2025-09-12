@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 911b205c76380bf46b9f37f5c0078ee3
+labels:
+- Sample
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 293524
+  packageName: Animancer Lite v8
+  packageVersion: 8.1.1
+  assetPath: Packages/com.kybernetik.animancer/Samples~/Code/SampleModules.cs
+  uploadId: 759810

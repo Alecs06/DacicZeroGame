@@ -64,16 +64,16 @@ namespace PlayerController
             if (!Grounded)
             {
                 //apply gravity
-                rb.velocity -= transform.up * GlobalPlayerConfig.Gravity * Time.fixedTime;
+                rb.linearVelocity -= transform.up * GlobalPlayerConfig.Gravity * Time.fixedTime;
             }
             Vector3 dir = (transform.forward * inputVector.y + transform.right * inputVector.x).normalized * GlobalPlayerConfig.PlayerSpeed;
             if (onSlope)
             {
-                rb.velocity = Vector3.ProjectOnPlane(dir, slopeHit.normal);
+                rb.linearVelocity = Vector3.ProjectOnPlane(dir, slopeHit.normal);
             }
             else
             {
-                rb.velocity = new Vector3(dir.x, rb.velocity.y, dir.z);
+                rb.linearVelocity = new Vector3(dir.x, rb.linearVelocity.y, dir.z);
             }
         }
         public void OnMove(Vector2 inputVector)

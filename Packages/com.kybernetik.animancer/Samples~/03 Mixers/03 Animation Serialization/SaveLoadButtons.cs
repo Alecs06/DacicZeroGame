@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2024 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
 
 #pragma warning disable CS0649 // Field is never assigned to, and will always have its default value.
 
@@ -41,7 +41,6 @@ namespace Animancer.Samples.Mixers
 
         protected virtual void Awake()
         {
-
             _SaveButton.onClick.AddListener(Save);
             _LoadButton.onClick.AddListener(Load);
         }
@@ -75,11 +74,11 @@ namespace Animancer.Samples.Mixers
         protected virtual void Awake()
         {
 #if !UNITY_JSON_SERIALIZE
-            SampleReadMe.LogMissingJsonSerializeModuleError(this);
+            SampleModules.LogMissingJsonSerializeModuleError(this);
 #endif
 
 #if !UNITY_UGUI
-            SampleReadMe.LogMissingUnityUIModuleError(this);
+            SampleModules.LogMissingUnityUIModuleError(this);
 #endif
         }
 

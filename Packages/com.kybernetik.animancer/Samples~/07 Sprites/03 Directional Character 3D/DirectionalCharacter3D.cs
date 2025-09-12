@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2024 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
 
 #pragma warning disable CS0649 // Field is never assigned to, and will always have its default value.
 
@@ -26,17 +26,16 @@ namespace Animancer.Samples.Sprites
         /************************************************************************************************************************/
 
         [Header("Physics")]
-        [SerializeField] private CapsuleCollider _Collider;
         [SerializeField] private Rigidbody _Rigidbody;
         [SerializeField, MetersPerSecond] private float _WalkSpeed = 1;
         [SerializeField, MetersPerSecond] private float _RunSpeed = 2;
 
         [Header("Animations")]
         [SerializeField] private DirectionalAnimations3D _Animancer;
-        [SerializeField] private DirectionalAnimationSet _Idle;
-        [SerializeField] private DirectionalAnimationSet _Walk;
-        [SerializeField] private DirectionalAnimationSet _Run;
-        [SerializeField] private DirectionalAnimationSet _Push;
+        [SerializeField] private DirectionalSet<AnimationClip> _Idle;
+        [SerializeField] private DirectionalSet<AnimationClip> _Walk;
+        [SerializeField] private DirectionalSet<AnimationClip> _Run;
+        [SerializeField] private DirectionalSet<AnimationClip> _Push;
 
         private Vector3 _Movement;
         private bool _IsPushing;
@@ -78,12 +77,12 @@ namespace Animancer.Samples.Sprites
 
         /************************************************************************************************************************/
 
-        private void Play(DirectionalAnimationSet animations, AnimationGroup group)
+        private void Play(DirectionalSet<AnimationClip> animations, AnimationGroup group)
             => _Animancer.SetAnimations(animations, (int)group);
 
         /************************************************************************************************************************/
 
-        private DirectionalAnimationSet GetMovementAnimations()
+        private DirectionalSet<AnimationClip> GetMovementAnimations()
         {
             if (_IsPushing)
                 return _Push;
@@ -154,7 +153,7 @@ namespace Animancer.Samples.Sprites
 
         protected virtual void Awake()
         {
-            SampleReadMe.LogMissingPhysics3DModuleError(this);
+            SampleModules.LogMissingPhysics3DModuleError(this);
         }
         
         /************************************************************************************************************************/

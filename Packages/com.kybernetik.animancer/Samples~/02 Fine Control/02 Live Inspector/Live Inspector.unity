@@ -557,7 +557,7 @@ GameObject:
   - component: {fileID: 1756647048}
   m_Layer: 0
   m_Name: Read Me
-  m_TagString: Untagged
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -578,11 +578,11 @@ MonoBehaviour:
     to do a few things manually using the AnimancerComponent''s Live Inspector instead
     of using scripts.
 
-    
 
-    You can''t manually set up runtime behaviour like
-    this, but viewing and fiddling with the animation details can be very useful
-    for debugging issues in the Unity Editor.'
+
+    You can''t manually set up runtime behaviour like this,
+    but viewing and fiddling with the animation details can be very useful for debugging
+    issues in the Unity Editor.'
 --- !u!4 &1756647049
 Transform:
   m_ObjectHideFlags: 0

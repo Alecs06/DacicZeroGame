@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2024 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
 
 #pragma warning disable CS0649 // Field is never assigned to, and will always have its default value.
 
@@ -37,14 +37,14 @@ namespace Animancer.Samples.Sprites
 
         [Header("Animations")]
         [SerializeField] private AnimancerComponent _Animancer;
-        [SerializeField] private DirectionalAnimationSet _Idle;
-        [SerializeField] private DirectionalAnimationSet _Walk;
-        [SerializeField] private DirectionalAnimationSet _Run;
-        [SerializeField] private DirectionalAnimationSet _Push;
+        [SerializeField] private DirectionalSet<AnimationClip> _Idle;
+        [SerializeField] private DirectionalSet<AnimationClip> _Walk;
+        [SerializeField] private DirectionalSet<AnimationClip> _Run;
+        [SerializeField] private DirectionalSet<AnimationClip> _Push;
         [SerializeField] private Vector2 _Facing = Vector2.down;
 
         private Vector2 _Movement;
-        private DirectionalAnimationSet _CurrentAnimationSet;
+        private DirectionalSet<AnimationClip> _CurrentAnimationSet;
 
         private static readonly TimeSynchronizer<AnimationGroup>
             TimeSynchronizer = new();
@@ -87,13 +87,13 @@ namespace Animancer.Samples.Sprites
 
         /************************************************************************************************************************/
 
-        private void Play(DirectionalAnimationSet animations, AnimationGroup group)
+        private void Play(DirectionalSet<AnimationClip> animations, AnimationGroup group)
         {
             // Store the current time.
             TimeSynchronizer.StoreTime(_Animancer);
 
             _CurrentAnimationSet = animations;
-            _Animancer.Play(animations.GetClip(_Facing));
+            _Animancer.Play(animations.Get(_Facing));
 
             // If the new animation is in the synchronization group, give it the same time the previous animation had.
             TimeSynchronizer.SyncTime(_Animancer, group);
@@ -118,7 +118,7 @@ namespace Animancer.Samples.Sprites
                 }
             }
 
-            DirectionalAnimationSet animations = SampleInput.LeftShiftHold ? _Run : _Walk;
+            DirectionalSet<AnimationClip> animations = SampleInput.LeftShiftHold ? _Run : _Walk;
             Play(animations, AnimationGroup.Movement);
         }
 
@@ -127,8 +127,15 @@ namespace Animancer.Samples.Sprites
         protected virtual void FixedUpdate()
         {
             // Determine the desired speed based on the current animation.
-            float speed = _CurrentAnimationSet == _Run ? _RunSpeed : _WalkSpeed;
+            float speed = _CurrentAnimationSet == _Run
+                ? _RunSpeed
+                : _WalkSpeed;
+
+#if UNITY_6000_0_OR_NEWER
+            _Rigidbody.linearVelocity = _Movement * speed;
+#else
             _Rigidbody.velocity = _Movement * speed;
+#endif
         }
 
         /************************************************************************************************************************/
@@ -142,7 +149,7 @@ namespace Animancer.Samples.Sprites
         protected virtual void OnValidate()
         {
             if (_Idle != null)
-                _Idle.GetClip(_Facing).EditModePlay(_Animancer);
+                _Idle.Get(_Facing).EditModePlay(_Animancer);
         }
 
         /************************************************************************************************************************/
@@ -153,7 +160,7 @@ namespace Animancer.Samples.Sprites
 
         protected virtual void Awake()
         {
-            SampleReadMe.LogMissingPhysics3DModuleError(this);
+            SampleModules.LogMissingPhysics2DModuleError(this);
         }
 
         /************************************************************************************************************************/

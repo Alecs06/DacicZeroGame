@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2024 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
 
 using UnityEngine;
 using UnityEngine.Events;
@@ -74,7 +74,7 @@ namespace Animancer.Samples
 
         protected virtual void Awake()
         {
-            SampleReadMe.LogMissingUnityUIModuleError(this);
+            SampleModules.LogMissingUnityUIModuleError(this);
         }
 
         /************************************************************************************************************************/

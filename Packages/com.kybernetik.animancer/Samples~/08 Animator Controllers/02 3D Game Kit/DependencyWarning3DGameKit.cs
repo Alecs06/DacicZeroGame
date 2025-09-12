@@ -1,6 +1,8 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2024 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
 
 #if UNITY_EDITOR
+
+#pragma warning disable CS0649 // Field is never assigned to, and will always have its default value.
 
 using UnityEditor;
 using UnityEngine;

@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2024 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
 
 #pragma warning disable CS0414 // Field is assigned but its value is never used.
 #pragma warning disable CS0649 // Field is never assigned to, and will always have its default value.
@@ -114,9 +114,9 @@ namespace Animancer.Samples.InverseKinematics
                 animator.SetIKPosition(goal, position);
 
                 // Use the hit normal to calculate the desired rotation.
-                Vector3 rotAxis = Vector3.Cross(localUp, hit.normal);
+                Vector3 rotationAxis = Vector3.Cross(localUp, hit.normal);
                 float angle = Vector3.Angle(localUp, hit.normal);
-                rotation = Quaternion.AngleAxis(angle, rotAxis) * rotation;
+                rotation = Quaternion.AngleAxis(angle, rotationAxis) * rotation;
 
                 animator.SetIKRotation(goal, rotation);
             }
@@ -133,7 +133,7 @@ namespace Animancer.Samples.InverseKinematics
 
         protected virtual void Awake()
         {
-            SampleReadMe.LogMissingPhysics3DModuleError(this);
+            SampleModules.LogMissingPhysics3DModuleError(this);
         }
 
         /************************************************************************************************************************/

@@ -1,7 +1,7 @@
 {
   "name": "com.kybernetik.animancer",
   "displayName": "Animancer",
-  "version": "8.0.0",
+  "version": "8.1.1",
   "unity": "2022.3",
   "description": "Animancer allows you to play animations on demand and control their details directly, without all the restrictions and extra preparation required by other systems.",
   "author": {
@@ -22,10 +22,10 @@
   "license": "See License.txt",
   "hideInEditor": false,
   "samples": [
-	{
-  	  "displayName": "Animancer Samples",
-  	  "description": "Sample scenes and scripts which demonstrate how to use Animancer along with detailed explanations at https://kybernetik.com.au/animancer/docs/samples",
-  	  "path": "Samples~"
-	}
+    {
+      "displayName": "Animancer Samples",
+      "description": "Sample scenes and scripts which demonstrate how to use Animancer along with detailed explanations at https://kybernetik.com.au/animancer/docs/samples",
+      "path": "Samples~"
+    }
   ]
 }

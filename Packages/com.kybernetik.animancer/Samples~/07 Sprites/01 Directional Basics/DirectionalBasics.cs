@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2024 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
 
 #pragma warning disable CS0649 // Field is never assigned to, and will always have its default value.
 
@@ -8,7 +8,7 @@ namespace Animancer.Samples.Sprites
 {
     /// <summary>
     /// Animates a character to either stand idle or walk using animations
-    /// defined in <see cref="DirectionalAnimationSet"/>s.
+    /// defined in <see cref="DirectionalSet{T}"/>s.
     /// </summary>
     /// 
     /// <remarks>
@@ -26,8 +26,8 @@ namespace Animancer.Samples.Sprites
         /************************************************************************************************************************/
 
         [SerializeField] private AnimancerComponent _Animancer;
-        [SerializeField] private DirectionalAnimationSet _Idles;
-        [SerializeField] private DirectionalAnimationSet _Walks;
+        [SerializeField] private DirectionalSet<AnimationClip> _Idles;
+        [SerializeField] private DirectionalSet<AnimationClip> _Walks;
         [SerializeField] private Vector2 _Facing = Vector2.down;
 
         /************************************************************************************************************************/
@@ -57,16 +57,16 @@ namespace Animancer.Samples.Sprites
 
         /************************************************************************************************************************/
 
-        private void Play(DirectionalAnimationSet animations)
+        private void Play(DirectionalSet<AnimationClip> animations)
         {
             // Instead of only a single animation, we have a different one for each direction we can face.
             // So we get whichever is appropriate for that direction and play it.
 
-            AnimationClip clip = animations.GetClip(_Facing);
+            AnimationClip clip = animations.Get(_Facing);
             _Animancer.Play(clip);
 
             // Or we could do that in one line:
-            // _Animancer.Play(animations.GetClip(_Facing));
+            // _Animancer.Play(animations.Get(_Facing));
         }
 
         /************************************************************************************************************************/
@@ -79,7 +79,7 @@ namespace Animancer.Samples.Sprites
         protected virtual void OnValidate()
         {
             if (_Idles != null)
-                _Idles.GetClip(_Facing).EditModeSampleAnimation(_Animancer);
+                _Idles.Get(_Facing).EditModeSampleAnimation(_Animancer);
         }
 
         /************************************************************************************************************************/

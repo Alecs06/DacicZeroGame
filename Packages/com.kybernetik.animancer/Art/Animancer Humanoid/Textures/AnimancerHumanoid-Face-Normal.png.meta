@@ -125,3 +125,10 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 293524
+  packageName: Animancer Lite v8
+  packageVersion: 8.1.1
+  assetPath: Packages/com.kybernetik.animancer/Art/Animancer Humanoid/Textures/AnimancerHumanoid-Face-Normal.png
+  uploadId: 759810
