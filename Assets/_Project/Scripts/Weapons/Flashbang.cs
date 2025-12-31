@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Weapons
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class Flashbang : MonoBehaviour
     {
         [SerializeField] float velocity, radius, stunDuration;
