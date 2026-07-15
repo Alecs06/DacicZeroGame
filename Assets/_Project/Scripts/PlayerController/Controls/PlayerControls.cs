@@ -123,7 +123,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""58c36bdf-8e49-40fe-b68d-64d703c75a17"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -142,6 +142,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""type"": ""Button"",
                     ""id"": ""11d0aba4-0b58-4c0e-a734-800fd29ed5b1"",
                     ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""f04119c5-2752-4cc9-bc98-e800a75bb551"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -257,6 +266,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Flashbang"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""707cf694-64da-4a16-96a3-7077e568a1c6"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -271,6 +291,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Melee = m_Player.FindAction("Melee", throwIfNotFound: true);
         m_Player_Flashbang = m_Player.FindAction("Flashbang", throwIfNotFound: true);
+        m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -357,6 +378,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Melee;
     private readonly InputAction m_Player_Flashbang;
+    private readonly InputAction m_Player_Crouch;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -392,6 +414,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Flashbang".
         /// </summary>
         public InputAction @Flashbang => m_Wrapper.m_Player_Flashbang;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Crouch".
+        /// </summary>
+        public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -436,6 +462,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Flashbang.started += instance.OnFlashbang;
             @Flashbang.performed += instance.OnFlashbang;
             @Flashbang.canceled += instance.OnFlashbang;
+            @Crouch.started += instance.OnCrouch;
+            @Crouch.performed += instance.OnCrouch;
+            @Crouch.canceled += instance.OnCrouch;
         }
 
         /// <summary>
@@ -465,6 +494,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Flashbang.started -= instance.OnFlashbang;
             @Flashbang.performed -= instance.OnFlashbang;
             @Flashbang.canceled -= instance.OnFlashbang;
+            @Crouch.started -= instance.OnCrouch;
+            @Crouch.performed -= instance.OnCrouch;
+            @Crouch.canceled -= instance.OnCrouch;
         }
 
         /// <summary>
@@ -547,5 +579,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnFlashbang(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Crouch" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCrouch(InputAction.CallbackContext context);
     }
 }

@@ -9,6 +9,8 @@ namespace PlayerController
         #region Fields
         [SerializeField] InputReader inputReader;
         [SerializeField] Rigidbody rb;
+        [SerializeField] CapsuleCollider capsuleCollider;
+        [SerializeField] Transform camPivot;
         [SerializeField] public Transform groundCheckPoint;
         [field: SerializeField] public bool Grounded { get; protected set; }
         [SerializeField] bool onSlope;
@@ -19,6 +21,7 @@ namespace PlayerController
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
+            capsuleCollider = GetComponent<CapsuleCollider>();
             rb.useGravity = false;
             rb.freezeRotation = true;
         }
@@ -28,6 +31,7 @@ namespace PlayerController
             inputReader.EnablePlayerActions();
             inputReader.Jump += OnJump;
             inputReader.Move += OnMove;
+            inputReader.Crouch += OnCrouch;
         }
 
         private void OnDisable()
@@ -35,6 +39,7 @@ namespace PlayerController
             inputReader.Move -= OnMove;
             inputReader.Jump -= OnJump;
             inputReader.DisablePlayerActions();
+            inputReader.Crouch -= OnCrouch;
         }
 
         private void Update()
@@ -68,6 +73,10 @@ namespace PlayerController
                 rb.linearVelocity -= transform.up * GlobalPlayerConfig.Gravity * Time.fixedDeltaTime;
             }
             Vector3 dir = (transform.forward * inputVector.y + transform.right * inputVector.x).normalized * GlobalPlayerConfig.PlayerSpeed;
+            if (isCrouching)
+            {
+                dir *= GlobalPlayerConfig.PlayerCrouchSpeedMultiplier;
+            }
             if (onSlope)
             {
                 rb.linearVelocity = Vector3.ProjectOnPlane(dir, slopeHit.normal);
@@ -87,6 +96,27 @@ namespace PlayerController
             if (Grounded)
             {
                 rb.AddForce(transform.up * GlobalPlayerConfig.JumpForce, ForceMode.Impulse);
+            }
+        }
+
+
+        [SerializeField] bool isCrouching;
+        public void OnCrouch(bool isHeld)
+        {
+            //TODO: hardcoded :)
+            isCrouching = isHeld;
+
+            if (isHeld)
+            {
+                capsuleCollider.height = 1f;
+                capsuleCollider.center = new Vector3(0, 0.5f, 0);
+                camPivot.localPosition = new Vector3(camPivot.localPosition.x, 0.2f, camPivot.localPosition.z);
+            }
+            else
+            {
+                capsuleCollider.height = 2f;
+                capsuleCollider.center = new Vector3(0, 1f, 0);
+                camPivot.localPosition = new Vector3(camPivot.localPosition.x, 0.5f, camPivot.localPosition.z);
             }
         }
     }
