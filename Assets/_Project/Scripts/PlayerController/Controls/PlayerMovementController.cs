@@ -11,6 +11,7 @@ namespace PlayerController
         [SerializeField] Rigidbody rb;
         [SerializeField] CapsuleCollider capsuleCollider;
         [SerializeField] Transform camPivot;
+        [SerializeField] Camera playerCamera;
         [SerializeField] public Transform groundCheckPoint;
         [field: SerializeField] public bool Grounded { get; protected set; }
         [SerializeField] bool onSlope;
@@ -32,6 +33,7 @@ namespace PlayerController
             inputReader.Jump += OnJump;
             inputReader.Move += OnMove;
             inputReader.Crouch += OnCrouch;
+            inputReader.Sprint += OnSprint;
         }
 
         private void OnDisable()
@@ -40,12 +42,14 @@ namespace PlayerController
             inputReader.Jump -= OnJump;
             inputReader.DisablePlayerActions();
             inputReader.Crouch -= OnCrouch;
+            inputReader.Sprint -= OnSprint;
         }
 
         private void Update()
         {
             //ground and slope check
             //GroundCheck();   why is this in not in fixedupdate
+            playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, targetFOV, 8f * Time.deltaTime);
         }
         void GroundCheck()
         {
@@ -76,6 +80,10 @@ namespace PlayerController
             if (isCrouching)
             {
                 dir *= GlobalPlayerConfig.PlayerCrouchSpeedMultiplier;
+            }
+            else if (isSprinting)
+            {
+                dir *= GlobalPlayerConfig.PlayerSprintSpeedMultiplier;
             }
             if (onSlope)
             {
@@ -118,6 +126,17 @@ namespace PlayerController
                 capsuleCollider.center = new Vector3(0, 1f, 0);
                 camPivot.localPosition = new Vector3(camPivot.localPosition.x, 0.5f, camPivot.localPosition.z);
             }
+        }
+
+        [SerializeField] bool isSprinting;
+        [SerializeField] float targetFOV = 60;
+        public void OnSprint(bool isHeld)
+        {
+            //TODO: wow even more magic numbers to fix
+            //im just not sure if all of these should go in globalplayer config so i need a second opinion first :/
+            isSprinting = isHeld;
+
+            targetFOV = isHeld ? 75 : 60;
         }
     }
 #if UNITY_EDITOR

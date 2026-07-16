@@ -943,11 +943,13 @@ MonoBehaviour:
   rb: {fileID: 3832161061893258359}
   capsuleCollider: {fileID: 7484420058146721102}
   camPivot: {fileID: 6776431533047406821}
+  playerCamera: {fileID: 2102838470461650688}
   groundCheckPoint: {fileID: 3741848804775637333}
   <Grounded>k__BackingField: 0
   onSlope: 0
   inputVector: {x: 0, y: 0}
   isCrouching: 0
+  isSprinting: 0
 --- !u!114 &8672219811969518626
 MonoBehaviour:
   m_ObjectHideFlags: 0

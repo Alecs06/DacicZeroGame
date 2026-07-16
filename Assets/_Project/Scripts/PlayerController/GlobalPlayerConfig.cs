@@ -13,6 +13,10 @@ public static class GlobalPlayerConfig
     /// </summary>
     public static float PlayerCrouchSpeedMultiplier { get; set; } = 0.5f;
     /// <summary>
+    /// How much to multiply the speed by when player is sprinting.
+    /// </summary>
+    public static float PlayerSprintSpeedMultiplier { get; set; } = 1.5f;
+    /// <summary>
     /// How much force to apply when jumping.
     /// </summary>
     public static float JumpForce { get; set; } = 7f;
