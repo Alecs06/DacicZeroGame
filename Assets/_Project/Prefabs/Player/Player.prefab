@@ -870,7 +870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VerticalLimit: 80
-  cameraSpeed: 50
+  cameraSpeed: 0.1
   smoothCameraRotation: 0
   cameraSmoothingFactor: 25
   cam: {fileID: 6776431533047406821}
@@ -950,6 +950,7 @@ MonoBehaviour:
   inputVector: {x: 0, y: 0}
   isCrouching: 0
   isSprinting: 0
+  targetFOV: 60
 --- !u!114 &8672219811969518626
 MonoBehaviour:
   m_ObjectHideFlags: 0
