@@ -71,28 +71,40 @@ namespace PlayerController
         private void FixedUpdate()
         {
             GroundCheck();
+
             if (!Grounded)
             {
                 //apply gravity
                 rb.linearVelocity -= transform.up * GlobalPlayerConfig.Gravity * Time.fixedDeltaTime;
             }
-            Vector3 dir = (transform.forward * inputVector.y + transform.right * inputVector.x).normalized * GlobalPlayerConfig.PlayerSpeed;
+
+            Vector3 targetDir = (transform.forward * inputVector.y + transform.right * inputVector.x).normalized * GlobalPlayerConfig.PlayerSpeed;
+
             if (isCrouching)
             {
-                dir *= GlobalPlayerConfig.PlayerCrouchSpeedMultiplier;
+                targetDir *= GlobalPlayerConfig.PlayerCrouchSpeedMultiplier;
+                if (!Grounded)
+                {
+                    // groundpound! (might not make the final cut)
+                    rb.linearVelocity = new Vector3(0, GlobalPlayerConfig.JumpForce*(-2), 0);
+                }
             }
             else if (isSprinting)
             {
-                dir *= GlobalPlayerConfig.PlayerSprintSpeedMultiplier;
+                targetDir *= GlobalPlayerConfig.PlayerSprintSpeedMultiplier;
             }
+
             if (onSlope)
             {
-                rb.linearVelocity = Vector3.ProjectOnPlane(dir, slopeHit.normal);
+                targetDir = Vector3.ProjectOnPlane(targetDir, slopeHit.normal);
             }
-            else
-            {
-                rb.linearVelocity = new Vector3(dir.x, rb.linearVelocity.y, dir.z);
-            }
+
+            float accel = Grounded ? GlobalPlayerConfig.PlayerAcceleration : GlobalPlayerConfig.PlayerAcceleration * GlobalPlayerConfig.AirControlMultiplier;
+
+            Vector3 currentHorizontalVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+            Vector3 newHorizontalVel = Vector3.MoveTowards(currentHorizontalVel, targetDir, accel * Time.fixedDeltaTime);
+
+            rb.linearVelocity = new Vector3(newHorizontalVel.x, rb.linearVelocity.y, newHorizontalVel.z);
         }
         public void OnMove(Vector2 inputVector)
         {
@@ -117,15 +129,16 @@ namespace PlayerController
             if (isHeld)
             {
                 capsuleCollider.height = 1f;
-                capsuleCollider.center = new Vector3(0, 0.5f, 0);
+                //capsuleCollider.center = new Vector3(0, 1f, 0);
                 camPivot.localPosition = new Vector3(camPivot.localPosition.x, 0.2f, camPivot.localPosition.z);
             }
             else
             {
                 capsuleCollider.height = 2f;
-                capsuleCollider.center = new Vector3(0, 1f, 0);
+                //capsuleCollider.center = new Vector3(0, 0f, 0);
                 camPivot.localPosition = new Vector3(camPivot.localPosition.x, 0.5f, camPivot.localPosition.z);
             }
+            Physics.SyncTransforms();
         }
 
         [SerializeField] bool isSprinting;

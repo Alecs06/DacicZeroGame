@@ -7,7 +7,15 @@ public static class GlobalPlayerConfig
     /// <summary>
     /// How fast can the player move.
     /// </summary>
-    public static float PlayerSpeed { get; set; } = 4;
+    public static float PlayerSpeed { get; set; } = 6;
+    /// <summary>
+    /// How quickly the player accelerates/decelerates toward target velocity.
+    /// </summary>
+    public static float PlayerAcceleration { get; set; } = 40f;
+    /// <summary>
+    /// Multiplier applied to PlayerAcceleration while airborne.
+    /// </summary>
+    public static float AirControlMultiplier { get; set; } = 0.1f;
     /// <summary>
     /// How much to multiply the speed by when player is crouching.
     /// </summary>
