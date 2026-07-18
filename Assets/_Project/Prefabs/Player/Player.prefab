@@ -911,7 +911,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5778261875785697884}
-  m_Material: {fileID: 13400000, guid: b6acd36b7d7ea85488fc46cd4e4dbf62, type: 2}
+  m_Material: {fileID: 13400000, guid: cedb5e2511987e64da74b34ce8921d04, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -949,6 +949,7 @@ MonoBehaviour:
   onSlope: 0
   inputVector: {x: 0, y: 0}
   isCrouching: 0
+  isSliding: 0
   isSprinting: 0
   targetFOV: 60
 --- !u!114 &8672219811969518626

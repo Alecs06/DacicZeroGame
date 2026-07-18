@@ -70,8 +70,8 @@ namespace PlayerController
         }
         private void FixedUpdate()
         {
+            // NOTE: the movement might be a bit too floaty, but we ARE presumably chromed up so not sure if we want to make it too stiff
             GroundCheck();
-
             if (!Grounded)
             {
                 //apply gravity
@@ -79,14 +79,26 @@ namespace PlayerController
             }
 
             Vector3 targetDir = (transform.forward * inputVector.y + transform.right * inputVector.x).normalized * GlobalPlayerConfig.PlayerSpeed;
-
+            targetFOV = (isSprinting && !isCrouching && Grounded) ? 65 : 60; // messing around, unsure if i like this but i think its the best so far
             if (isCrouching)
             {
-                targetDir *= GlobalPlayerConfig.PlayerCrouchSpeedMultiplier;
-                if (!Grounded)
+                if (!isSprinting)
+                {
+                    targetDir *= GlobalPlayerConfig.PlayerCrouchSpeedMultiplier;
+                }
+                if (!Grounded && !isSliding && rb.linearVelocity.y <=0)
                 {
                     // groundpound! (might not make the final cut)
                     rb.linearVelocity = new Vector3(0, GlobalPlayerConfig.JumpForce*(-2), 0);
+                    isSprinting = false;
+                }
+                if (isSliding)
+                {
+                    if(rb.linearVelocity.magnitude < GlobalPlayerConfig.PlayerSpeed)
+                    {
+                        isSliding = false; // stop the slide if youre too slow
+                        isSprinting = false;
+                    }
                 }
             }
             else if (isSprinting)
@@ -99,7 +111,9 @@ namespace PlayerController
                 targetDir = Vector3.ProjectOnPlane(targetDir, slopeHit.normal);
             }
 
-            float accel = Grounded ? GlobalPlayerConfig.PlayerAcceleration : GlobalPlayerConfig.PlayerAcceleration * GlobalPlayerConfig.AirControlMultiplier;
+            float accel = isSliding ? 0 : 
+                           Grounded ? GlobalPlayerConfig.PlayerAcceleration : 
+                            GlobalPlayerConfig.PlayerAcceleration * GlobalPlayerConfig.AirControlMultiplier;
 
             Vector3 currentHorizontalVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             Vector3 newHorizontalVel = Vector3.MoveTowards(currentHorizontalVel, targetDir, accel * Time.fixedDeltaTime);
@@ -116,11 +130,16 @@ namespace PlayerController
             if (Grounded)
             {
                 rb.AddForce(transform.up * GlobalPlayerConfig.JumpForce, ForceMode.Impulse);
+                if (isSliding)
+                {
+                    rb.AddForce(transform.forward * GlobalPlayerConfig.JumpForce, ForceMode.Impulse);
+                }
             }
         }
 
 
         [SerializeField] bool isCrouching;
+        [SerializeField] bool isSliding;
         public void OnCrouch(bool isHeld)
         {
             //TODO: hardcoded :)
@@ -138,6 +157,7 @@ namespace PlayerController
                 //capsuleCollider.center = new Vector3(0, 0f, 0);
                 camPivot.localPosition = new Vector3(camPivot.localPosition.x, 0.5f, camPivot.localPosition.z);
             }
+            isSliding = isHeld && isSprinting && Grounded;
             Physics.SyncTransforms();
         }
 
@@ -145,11 +165,10 @@ namespace PlayerController
         [SerializeField] float targetFOV = 60;
         public void OnSprint(bool isHeld)
         {
-            //TODO: wow even more magic numbers to fix
-            //im just not sure if all of these should go in globalplayer config so i need a second opinion first :/
-            isSprinting = isHeld;
-
-            targetFOV = isHeld ? 75 : 60;
+            if (!isCrouching) // cant start sprinting while crouched
+            {
+                isSprinting = isHeld;
+            }        
         }
     }
 #if UNITY_EDITOR

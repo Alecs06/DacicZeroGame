@@ -7,19 +7,19 @@ public static class GlobalPlayerConfig
     /// <summary>
     /// How fast can the player move.
     /// </summary>
-    public static float PlayerSpeed { get; set; } = 6;
+    public static float PlayerSpeed { get; set; } = 7;
     /// <summary>
     /// How quickly the player accelerates/decelerates toward target velocity.
     /// </summary>
-    public static float PlayerAcceleration { get; set; } = 40f;
+    public static float PlayerAcceleration { get; set; } = 75f;
     /// <summary>
     /// Multiplier applied to PlayerAcceleration while airborne.
     /// </summary>
-    public static float AirControlMultiplier { get; set; } = 0.1f;
+    public static float AirControlMultiplier { get; set; } = 0.25f;
     /// <summary>
     /// How much to multiply the speed by when player is crouching.
     /// </summary>
-    public static float PlayerCrouchSpeedMultiplier { get; set; } = 0.5f;
+    public static float PlayerCrouchSpeedMultiplier { get; set; } = 0.3f;
     /// <summary>
     /// How much to multiply the speed by when player is sprinting.
     /// </summary>
@@ -31,7 +31,7 @@ public static class GlobalPlayerConfig
     /// <summary>
     /// How much gravity to apply downwards when not grounded.
     /// </summary>
-    public static float Gravity { get; set; } = 20f;
+    public static float Gravity { get; set; } = 15f;
     /// <summary>
     /// At what distance can the player interact with an interactable.
     /// </summary>
