@@ -19,8 +19,8 @@ namespace PlayerController
         public event UnityAction Interact = delegate { };
         public event UnityAction<bool> Crouch = delegate { };
         public event UnityAction<bool> Sprint = delegate { };
-        public event UnityAction<InputAction.CallbackContext, int> Fire = delegate { };
-        public event UnityAction<InputAction.CallbackContext, int> AltFire = delegate { };
+        public event UnityAction<InputAction.CallbackContext> Fire = delegate { };
+        public event UnityAction<InputAction.CallbackContext> AltFire = delegate { };
         public PlayerControls inputActions;
         public Vector2 Direction => inputActions.Player.Move.ReadValue<Vector2>();
         public Vector2 LookDirection => inputActions.Player.Look.ReadValue<Vector2>();
@@ -66,12 +66,12 @@ namespace PlayerController
         }
         public void OnFire(InputAction.CallbackContext context)
         {
-            Fire.Invoke(context, 0);
+            Fire.Invoke(context);
         }
 
         public void OnAltFire(InputAction.CallbackContext context)
         {
-            AltFire.Invoke(context, 0);
+            AltFire.Invoke(context);
         }
 
         public void OnCrouch(InputAction.CallbackContext context)
