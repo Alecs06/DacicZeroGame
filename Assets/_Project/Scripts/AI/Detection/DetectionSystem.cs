@@ -291,25 +291,25 @@ namespace Detection
             {
                 if (ClosestTarget != null && @params.LookAtTarget)
                 {
-                    Debug.Log("A");
+                    //Debug.Log("A");
                     Eye.LookAt(ClosestTarget.LastKnownPosition);
                 }
                 else if (ClosestSound != null && @params.LookAtSound)
                 {
-                    Debug.Log("B");
+                    //Debug.Log("B");
                     Eye.LookAt(ClosestSound.Value.Position);
                 }
                 else if (PosToLookAt != null)
                 {
-                    Debug.Log("C");
+                    //Debug.Log("C");
                     Eye.LookAt(PosToLookAt.Value);
                 }
                 else
                 {
-                    Debug.Log("D");
+                    //Debug.Log("D");
                     Eye.localRotation = Quaternion.identity;
                 }
-                Debug.Log("Z");
+                //Debug.Log("Z");
             }
         }
         /// <summary>

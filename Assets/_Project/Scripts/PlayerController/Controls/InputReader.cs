@@ -17,6 +17,8 @@ namespace PlayerController
         public event UnityAction<Vector2> Look = delegate { };
         public event UnityAction Jump = delegate { };
         public event UnityAction Interact = delegate { };
+        public event UnityAction<bool> Crouch = delegate { };
+        public event UnityAction<bool> Sprint = delegate { };
         public event UnityAction<InputAction.CallbackContext, int> Weapon = delegate { };
         public PlayerControls inputActions;
         public Vector2 Direction => inputActions.Player.Move.ReadValue<Vector2>();
@@ -70,6 +72,22 @@ namespace PlayerController
         public void OnFlashbang(InputAction.CallbackContext context)
         {
             Weapon.Invoke(context, 1);
+        }
+
+        public void OnCrouch(InputAction.CallbackContext context)
+        {
+            if (context.started)
+                Crouch.Invoke(true);
+            else if (context.canceled)
+                Crouch.Invoke(false);
+        }
+
+        public void OnSprint(InputAction.CallbackContext context)
+        {
+            if (context.started)
+                Sprint.Invoke(true);
+            else if (context.canceled)
+                Sprint.Invoke(false);
         }
     }
 }
