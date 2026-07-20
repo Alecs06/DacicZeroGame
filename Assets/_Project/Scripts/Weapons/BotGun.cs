@@ -85,7 +85,8 @@ namespace Weapons
         }
         protected override void Fire()
         {
-            //reset the cooldown of the gun
+            //reset the fireCooldown of the gun
+            CooldownTo = Time.time + fireCooldown;
             timeLastShot = Time.time;
             Vector3 dir = transform.forward;
             lineRenderer.enabled = true;
@@ -113,7 +114,7 @@ namespace Weapons
                     transform.position + dir * maxRaycastDist });
             }
             //accuracy increases while firing
-            currentError -= accBuildUp * cooldown;
+            currentError -= accBuildUp * fireCooldown;
         }
         protected override void HandleNotFiring()
         {

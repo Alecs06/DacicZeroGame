@@ -30,6 +30,10 @@ namespace Weapons
                 }
             }
         }
+        protected override void AltFire()
+        {
+            Debug.Log("Hi guys");
+        }
         private void OnDrawGizmosSelected()
         {
             Gizmos.DrawWireSphere(transform.position + dist * transform.forward, radius);

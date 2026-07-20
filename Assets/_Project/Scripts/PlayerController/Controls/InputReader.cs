@@ -19,7 +19,8 @@ namespace PlayerController
         public event UnityAction Interact = delegate { };
         public event UnityAction<bool> Crouch = delegate { };
         public event UnityAction<bool> Sprint = delegate { };
-        public event UnityAction<InputAction.CallbackContext, int> Weapon = delegate { };
+        public event UnityAction<InputAction.CallbackContext> Fire = delegate { };
+        public event UnityAction<InputAction.CallbackContext> AltFire = delegate { };
         public PlayerControls inputActions;
         public Vector2 Direction => inputActions.Player.Move.ReadValue<Vector2>();
         public Vector2 LookDirection => inputActions.Player.Look.ReadValue<Vector2>();
@@ -63,15 +64,14 @@ namespace PlayerController
                 Interact.Invoke();
             }
         }
-
-        public void OnMelee(InputAction.CallbackContext context)
+        public void OnFire(InputAction.CallbackContext context)
         {
-            Weapon.Invoke(context, 0);
+            Fire.Invoke(context);
         }
 
-        public void OnFlashbang(InputAction.CallbackContext context)
+        public void OnAltFire(InputAction.CallbackContext context)
         {
-            Weapon.Invoke(context, 1);
+            AltFire.Invoke(context);
         }
 
         public void OnCrouch(InputAction.CallbackContext context)

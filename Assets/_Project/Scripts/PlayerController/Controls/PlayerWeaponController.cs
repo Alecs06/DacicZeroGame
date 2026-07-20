@@ -8,33 +8,53 @@ namespace PlayerController
     {
         [SerializeField] protected InputReader inputReader;
         [SerializeField] protected List<WeaponBase> weapons = new();
+        protected int selectedWeaponIndex = 0;
+
         private void OnEnable()
         {
-            inputReader.Weapon += OnWeapon;
+            inputReader.Fire += OnFire;
+            inputReader.AltFire += OnAltFire;
         }
         private void OnDisable()
         {
-            inputReader.Weapon -= OnWeapon;
+            inputReader.Fire -= OnFire;
+            inputReader.AltFire -= OnAltFire;
         }
         /// <summary>
-        /// Takes in an input context for a certain weapon. Displays an error log if the weapon is not found.
+        /// Takes in an input context for a certain selectedWeaponIndex. Displays an error log if the selectedWeaponIndex is not found.
         /// </summary>
-        /// <param name="context">The input context that the weapon must receive.</param>
-        /// <param name="weapon">The weapon that must receive the input.</param>
-        protected void OnWeapon(InputAction.CallbackContext context, int weapon)
+        /// <param name="context">The input context that the selectedWeaponIndex must receive.</param>
+        /// <param name="weapon">The selectedWeaponIndex that must receive the input.</param>
+        protected void OnFire(InputAction.CallbackContext context)
         {
-            if (weapon < 0 || weapon >= weapons.Count)
+            if (selectedWeaponIndex < 0 || selectedWeaponIndex >= weapons.Count)
             {
-                Debug.LogError($"{transform} attempted to use nonexistant weapon {weapon}.");
+                Debug.LogError($"{transform} attempted to use nonexistant selectedWeaponIndex {selectedWeaponIndex}.");
                 return;
             }
             if (context.ReadValue<float>() == 1)
             {
-                weapons[weapon].Firing = true;
+                weapons[selectedWeaponIndex].Firing = true;
             }
             else
             {
-                weapons[weapon].Firing = false;
+                weapons[selectedWeaponIndex].Firing = false;
+            }
+        }
+        protected void OnAltFire(InputAction.CallbackContext context)
+        {
+            if (selectedWeaponIndex < 0 || selectedWeaponIndex >= weapons.Count)
+            {
+                Debug.LogError($"{transform} attempted to use nonexistant selectedWeaponIndex {selectedWeaponIndex}.");
+                return;
+            }
+            if (context.ReadValue<float>() == 1)
+            {
+                weapons[selectedWeaponIndex].AltFiring = true;
+            }
+            else
+            {
+                weapons[selectedWeaponIndex].AltFiring = false;
             }
         }
     }
