@@ -43,19 +43,19 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Melee",
+                    "name": "Fire",
                     "type": "Button",
                     "id": "92130fa6-94e4-4f6b-a18f-fff168fae359",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Flashbang",
+                    "name": "AltFire",
                     "type": "Button",
                     "id": "11d0aba4-0b58-4c0e-a734-800fd29ed5b1",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -175,7 +175,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Melee",
+                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -186,7 +186,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Flashbang",
+                    "action": "AltFire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -712,8 +712,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cdac1accb8cce44ba7e17bcdd3d7fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 1
+  fireCooldown: 1
+  altFireCooldown: 0
   <Firing>k__BackingField: 0
+  <AltFiring>k__BackingField: 0
   minError: 0
   maxError: 0.1
   accBuildUp: 0.2
