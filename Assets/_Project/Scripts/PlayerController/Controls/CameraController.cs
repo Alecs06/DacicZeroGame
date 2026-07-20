@@ -12,7 +12,7 @@ namespace PlayerController
 
         [Range(0f, 90f)] public float VerticalLimit = 35f;
 
-        public float cameraSpeed = 50f;
+        public float cameraSpeed = 0.01f;
         public bool smoothCameraRotation;
         [Range(1f, 50f)] public float cameraSmoothingFactor = 25f;
         [SerializeField] Transform cam;
@@ -89,8 +89,8 @@ namespace PlayerController
                 verticalInput = Mathf.Lerp(0, verticalInput, Time.deltaTime * cameraSmoothingFactor);
             }
 
-            currentXAngle += verticalInput * cameraSpeed * Time.deltaTime;
-            currentYAngle += horizontalInput * cameraSpeed * Time.deltaTime;
+            currentXAngle += verticalInput * cameraSpeed;
+            currentYAngle += horizontalInput * cameraSpeed;
 
             currentXAngle = Mathf.Clamp(currentXAngle, -VerticalLimit, VerticalLimit);
 
