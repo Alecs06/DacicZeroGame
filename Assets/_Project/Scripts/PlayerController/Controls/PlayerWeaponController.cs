@@ -10,18 +10,21 @@ namespace PlayerController
         [SerializeField] Rigidbody PlayerBody;
         [SerializeField] protected InputReader inputReader;
         [SerializeField] protected List<WeaponBase> weapons = new();
-        protected int selectedWeaponIndex = 0;
+        protected int selectedWeaponIndex = 2;
 
         private void OnEnable()
         {
             inputReader.Fire += OnFire;
             inputReader.AltFire += OnAltFire;
+            inputReader.SwitchWeapon += OnSwitchWeapon;
             weapons[selectedWeaponIndex].boostPlayer += OnBoostPlayer;
         }
         private void OnDisable()
         {
             inputReader.Fire -= OnFire;
             inputReader.AltFire -= OnAltFire;
+            inputReader.SwitchWeapon -= OnSwitchWeapon;
+            weapons[selectedWeaponIndex].boostPlayer -= OnBoostPlayer;
         }
         /// <summary>
         /// Takes in an input context for a certain selectedWeaponIndex. Displays an error log if the selectedWeaponIndex is not found.
@@ -64,6 +67,10 @@ namespace PlayerController
         protected void OnBoostPlayer(float velocity)
         {
             PlayerBody.AddForce(transform.forward * velocity);
+        }
+        protected void OnSwitchWeapon(int weaponNumber)
+        {
+            selectedWeaponIndex = weaponNumber;
         }
     }
 }
