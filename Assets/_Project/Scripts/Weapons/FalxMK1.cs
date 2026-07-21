@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Weapons
 {
-    public class MeleeWeapon : WeaponBase
+    public class FalxMK1 : WeaponBase
     {
         [SerializeField] protected AnimationClip clip;
         protected AnimancerComponent animancer;
