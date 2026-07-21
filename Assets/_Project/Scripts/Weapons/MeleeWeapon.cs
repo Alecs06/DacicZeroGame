@@ -1,6 +1,7 @@
 using Animancer;
 using EventBus;
 using HP;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace Weapons
@@ -30,9 +31,43 @@ namespace Weapons
                 }
             }
         }
+        private float boostForce = 1500;
+        private float lungeDuration = 1f;
+        private float hitCheckInterval = 0.05f;
         protected override void AltFire()
         {
-            Debug.Log("Hi guys");
+            StartCoroutine(repeatedAltFireAction());
+        }
+
+        private IEnumerator repeatedAltFireAction()
+        {
+            boostPlayer.Invoke(boostForce);
+            animancer.Play(clip).Time = 0;
+
+            HashSet<Transform> hitsThisLunge = new();
+            float elapsed = 0f;
+
+            while (elapsed < lungeDuration)
+            {
+                altFireAction(hitsThisLunge);
+                yield return new WaitForSeconds(hitCheckInterval);
+                elapsed += hitCheckInterval;
+            }
+        }
+
+        private void altFireAction(HashSet<Transform> hits)
+        {
+            Collider[] colliders = new Collider[10];
+            int nrOfHits = Physics.OverlapSphereNonAlloc(transform.position + dist * transform.forward, radius, colliders, GlobalSettings.TargetMasks[gameObject.layer]);
+
+            for (int i = 0; i < nrOfHits; i++)
+            {
+                Transform root = colliders[i].transform.root;
+                if (hits.Add(root))
+                {
+                    EventBus<TakeDamage>.Raise(root.GetInstanceID(), new TakeDamage(1, transform.root, colliders[i]));
+                }
+            }
         }
         private void OnDrawGizmosSelected()
         {

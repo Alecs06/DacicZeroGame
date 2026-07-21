@@ -342,8 +342,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireCooldown: 1
   altFireCooldown: 2
-  <Firing>k__BackingField: 0
-  <AltFiring>k__BackingField: 0
   clip: {fileID: 7400000, guid: 6ffc3fee10117ca43b524b4439eb840b, type: 2}
   radius: 1
   dist: 1
@@ -942,7 +940,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputReader: {fileID: 11400000, guid: be09657888a79554f8b2e7a8931f0bba, type: 2}
-  rb: {fileID: 3832161061893258359}
+  PlayerBody: {fileID: 3832161061893258359}
   capsuleCollider: {fileID: 7484420058146721102}
   camPivot: {fileID: 6776431533047406821}
   playerCamera: {fileID: 2102838470461650688}
@@ -970,6 +968,7 @@ MonoBehaviour:
   weapons:
   - {fileID: 4229722006637619729}
   - {fileID: 3644021617557294592}
+  PlayerBody: {fileID: 0}
 --- !u!114 &3464305454432268230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1346,8 +1345,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireCooldown: 0
   altFireCooldown: 0
-  <Firing>k__BackingField: 0
-  <AltFiring>k__BackingField: 0
   prefab: {fileID: 8140405007356546083, guid: 12c2d356cc9dad74e8a94e6c29666f3b, type: 3}
   ammo: 1
 --- !u!1 &8484614081420394181

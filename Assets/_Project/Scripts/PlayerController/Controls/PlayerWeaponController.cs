@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using Weapons;
 namespace PlayerController
 {
     public class PlayerWeaponController : MonoBehaviour
     {
+        [SerializeField] Rigidbody PlayerBody;
         [SerializeField] protected InputReader inputReader;
         [SerializeField] protected List<WeaponBase> weapons = new();
         protected int selectedWeaponIndex = 0;
@@ -14,6 +16,7 @@ namespace PlayerController
         {
             inputReader.Fire += OnFire;
             inputReader.AltFire += OnAltFire;
+            weapons[selectedWeaponIndex].boostPlayer += OnBoostPlayer;
         }
         private void OnDisable()
         {
@@ -56,6 +59,11 @@ namespace PlayerController
             {
                 weapons[selectedWeaponIndex].AltFiring = false;
             }
+        }
+
+        protected void OnBoostPlayer(float velocity)
+        {
+            PlayerBody.AddForce(transform.forward * velocity);
         }
     }
 }

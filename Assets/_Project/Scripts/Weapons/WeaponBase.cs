@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Weapons
 {
@@ -6,10 +7,11 @@ namespace Weapons
     {
         [SerializeField] protected float fireCooldown;
         [SerializeField] protected float altFireCooldown;
-        [field: SerializeField] public bool Firing { get; set; }
-        [field: SerializeField] public bool AltFiring { get; set; }
+        [SerializeField] public bool Firing { get; set; }
+        [SerializeField] public bool AltFiring { get; set; }
         protected float CooldownTo = -1;
         protected float timeLastShot = -1;
+        public UnityAction<float> boostPlayer = delegate { };
         protected virtual void Update()
         {
             if (Firing)
