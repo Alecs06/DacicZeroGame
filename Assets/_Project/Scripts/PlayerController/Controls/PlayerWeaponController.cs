@@ -10,7 +10,7 @@ namespace PlayerController
         [SerializeField] Rigidbody PlayerBody;
         [SerializeField] protected InputReader inputReader;
         [SerializeField] protected List<WeaponBase> weapons = new();
-        protected int selectedWeaponIndex = 2;
+        protected int selectedWeaponIndex = 0;
 
         private void OnEnable()
         {

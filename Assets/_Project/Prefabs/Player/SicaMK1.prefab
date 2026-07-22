@@ -206,7 +206,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapons.SicaMK1
   fireCooldown: 0.5
-  altFireCooldown: 1
+  altFireCooldown: 10
+  projectile: {fileID: 1473660337564438398, guid: 3fec734c918d546408bd54dbf238cf4c, type: 3}
+  projectileVelocity: 20
   clip: {fileID: 7400000, guid: 6ffc3fee10117ca43b524b4439eb840b, type: 2}
   radius: 0.7
   dist: 0.7

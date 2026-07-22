@@ -8,9 +8,13 @@ namespace Weapons
 {
     public class SicaMK1 : WeaponBase
     {
+        [SerializeField] Projectile projectile = new Projectile();
+        [SerializeField] float projectileVelocity = 80;
         [SerializeField] protected AnimationClip clip;
         protected AnimancerComponent animancer;
         [SerializeField] float radius = 0.7f, dist = 0.7f;
+
+        Projectile rb;
         protected void Awake()
         {
             animancer = GetComponent<AnimancerComponent>();
@@ -31,44 +35,23 @@ namespace Weapons
                 }
             }
         }
-        private float boostForce = 1500;
-        private float lungeDuration = 1f;
-        private float hitCheckInterval = 0.05f;
         protected override void AltFire()
         {
-            StartCoroutine(repeatedAltFireAction());
+            rb = Instantiate(projectile, transform.position, transform.rotation);
+            rb.Owner = transform;
+            rb.velocity = projectileVelocity;
+            rb.damage = 1;
+            rb.gameObject.SetActive(true);
+            rb.OnExpire += onProjectileExpire;
         }
 
-        private IEnumerator repeatedAltFireAction()
+        private void onProjectileExpire()
         {
-            boostPlayer.Invoke(boostForce);
-            animancer.Play(clip).Time = 0;
-
-            HashSet<Transform> hitsThisLunge = new();
-            float elapsed = 0f;
-
-            while (elapsed < lungeDuration)
-            {
-                altFireAction(hitsThisLunge);
-                yield return new WaitForSeconds(hitCheckInterval);
-                elapsed += hitCheckInterval;
-            }
+            // if the sica projectile returns, override the long cooldown
+            Debug.Log("we are so back");
+            CooldownTo = Time.time + 0.5f;
         }
 
-        private void altFireAction(HashSet<Transform> hits)
-        {
-            Collider[] colliders = new Collider[10];
-            int nrOfHits = Physics.OverlapSphereNonAlloc(transform.position + dist * transform.forward, radius, colliders, GlobalSettings.TargetMasks[gameObject.layer]);
-
-            for (int i = 0; i < nrOfHits; i++)
-            {
-                Transform root = colliders[i].transform.root;
-                if (hits.Add(root))
-                {
-                    EventBus<TakeDamage>.Raise(root.GetInstanceID(), new TakeDamage(1, transform.root, colliders[i]));
-                }
-            }
-        }
         private void OnDrawGizmosSelected()
         {
             Gizmos.DrawWireSphere(transform.position + dist * transform.forward, radius);
