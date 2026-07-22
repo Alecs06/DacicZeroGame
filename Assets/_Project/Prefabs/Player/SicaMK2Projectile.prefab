@@ -189,4 +189,3 @@ MonoBehaviour:
     m_Bits: 128
   maxBounces: 3
   bounceRadiusMultiplier: 1.2
-  bounceCooldown: 0.05

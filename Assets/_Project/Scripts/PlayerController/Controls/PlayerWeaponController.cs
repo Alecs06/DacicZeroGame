@@ -18,6 +18,10 @@ namespace PlayerController
             inputReader.AltFire += OnAltFire;
             inputReader.SwitchWeapon += OnSwitchWeapon;
             weapons[selectedWeaponIndex].BoostPlayer += OnBoostPlayer;
+            for (int i = 1; i < weapons.Count; i++)
+            {
+                weapons[i].SetModelVisible(false);
+            }
         }
         private void OnDisable()
         {
@@ -70,6 +74,10 @@ namespace PlayerController
         }
         protected void OnSwitchWeapon(int weaponNumber)
         {
+            weapons[selectedWeaponIndex].Firing = false;
+            weapons[selectedWeaponIndex].AltFiring = false;
+            weapons[selectedWeaponIndex].SetModelVisible(false);
+            weapons[weaponNumber].SetModelVisible(true);
             selectedWeaponIndex = weaponNumber;
         }
     }
