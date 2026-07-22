@@ -6,10 +6,10 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Weapons
 {
-    public class SicaMK1 : WeaponBase
+    public class SicaMK2 : WeaponBase
     {
-        [SerializeField] Projectile projectile;
-        [SerializeField] float projectileVelocity;
+        [SerializeField] Projectile projectile = new Projectile();
+        [SerializeField] float projectileVelocity = 80;
         [SerializeField] protected AnimationClip clip;
         protected AnimancerComponent animancer;
         [SerializeField] float radius = 0.7f, dist = 0.7f;
