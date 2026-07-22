@@ -19,6 +19,7 @@ namespace PlayerController
         public event UnityAction Interact = delegate { };
         public event UnityAction<bool> Crouch = delegate { };
         public event UnityAction<bool> Sprint = delegate { };
+        public event UnityAction<int> SwitchWeapon = delegate { };
         public event UnityAction<InputAction.CallbackContext> Fire = delegate { };
         public event UnityAction<InputAction.CallbackContext> AltFire = delegate { };
         public PlayerControls inputActions;
@@ -88,6 +89,17 @@ namespace PlayerController
                 Sprint.Invoke(true);
             else if (context.canceled)
                 Sprint.Invoke(false);
+        }
+
+        public void OnSwitchWeapon(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                if (int.TryParse(context.control.name, out int weaponNumber))
+                {
+                    SwitchWeapon.Invoke(weaponNumber-1); // -1 cus 0 indexing
+                }
+            }
         }
     }
 }

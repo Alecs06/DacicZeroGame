@@ -8,7 +8,7 @@ namespace PlayerController
     {
         #region Fields
         [SerializeField] InputReader inputReader;
-        [SerializeField] Rigidbody rb;
+        [SerializeField] Rigidbody PlayerBody;
         [SerializeField] CapsuleCollider capsuleCollider;
         [SerializeField] Transform camPivot;
         [SerializeField] Camera playerCamera;
@@ -21,10 +21,10 @@ namespace PlayerController
 
         private void Awake()
         {
-            rb = GetComponent<Rigidbody>();
+            PlayerBody = GetComponent<Rigidbody>();
             capsuleCollider = GetComponent<CapsuleCollider>();
-            rb.useGravity = false;
-            rb.freezeRotation = true;
+            PlayerBody.useGravity = false;
+            PlayerBody.freezeRotation = true;
         }
 
         private void OnEnable()
@@ -34,6 +34,7 @@ namespace PlayerController
             inputReader.Move += OnMove;
             inputReader.Crouch += OnCrouch;
             inputReader.Sprint += OnSprint;
+            
         }
 
         private void OnDisable()
@@ -75,7 +76,7 @@ namespace PlayerController
             if (!Grounded)
             {
                 //apply gravity
-                rb.linearVelocity -= transform.up * GlobalPlayerConfig.Gravity * Time.fixedDeltaTime;
+                PlayerBody.linearVelocity -= transform.up * GlobalPlayerConfig.Gravity * Time.fixedDeltaTime;
             }
 
             Vector3 targetDir = (transform.forward * inputVector.y + transform.right * inputVector.x).normalized * GlobalPlayerConfig.PlayerSpeed;
@@ -86,15 +87,15 @@ namespace PlayerController
                 {
                     targetDir *= GlobalPlayerConfig.PlayerCrouchSpeedMultiplier;
                 }
-                if (!Grounded && !isSliding && rb.linearVelocity.y <=0)
+                if (!Grounded && !isSliding && PlayerBody.linearVelocity.y <=0)
                 {
                     // groundpound! (might not make the final cut)
-                    rb.linearVelocity = new Vector3(0, GlobalPlayerConfig.JumpForce*(-2), 0);
+                    PlayerBody.linearVelocity = new Vector3(0, GlobalPlayerConfig.JumpForce*(-2), 0);
                     isSprinting = false;
                 }
                 if (isSliding)
                 {
-                    if(rb.linearVelocity.magnitude < GlobalPlayerConfig.PlayerSpeed)
+                    if(PlayerBody.linearVelocity.magnitude < GlobalPlayerConfig.PlayerSpeed)
                     {
                         isSliding = false; // stop the slide if youre too slow
                         isSprinting = false;
@@ -115,10 +116,10 @@ namespace PlayerController
                            Grounded ? GlobalPlayerConfig.PlayerAcceleration : 
                             GlobalPlayerConfig.PlayerAcceleration * GlobalPlayerConfig.AirControlMultiplier;
 
-            Vector3 currentHorizontalVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+            Vector3 currentHorizontalVel = new Vector3(PlayerBody.linearVelocity.x, 0f, PlayerBody.linearVelocity.z);
             Vector3 newHorizontalVel = Vector3.MoveTowards(currentHorizontalVel, targetDir, accel * Time.fixedDeltaTime);
 
-            rb.linearVelocity = new Vector3(newHorizontalVel.x, rb.linearVelocity.y, newHorizontalVel.z);
+            PlayerBody.linearVelocity = new Vector3(newHorizontalVel.x, PlayerBody.linearVelocity.y, newHorizontalVel.z);
         }
         public void OnMove(Vector2 inputVector)
         {
@@ -129,10 +130,10 @@ namespace PlayerController
         {
             if (Grounded)
             {
-                rb.AddForce(transform.up * GlobalPlayerConfig.JumpForce, ForceMode.Impulse);
+                PlayerBody.AddForce(transform.up * GlobalPlayerConfig.JumpForce, ForceMode.Impulse);
                 if (isSliding)
                 {
-                    rb.AddForce(transform.forward * GlobalPlayerConfig.JumpForce, ForceMode.Impulse);
+                    PlayerBody.AddForce(transform.forward * GlobalPlayerConfig.JumpForce, ForceMode.Impulse);
                 }
             }
         }

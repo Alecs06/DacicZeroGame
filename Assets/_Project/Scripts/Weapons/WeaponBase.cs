@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Weapons
 {
@@ -6,25 +7,40 @@ namespace Weapons
     {
         [SerializeField] protected float fireCooldown;
         [SerializeField] protected float altFireCooldown;
-        [field: SerializeField] public bool Firing { get; set; }
-        [field: SerializeField] public bool AltFiring { get; set; }
-        protected float CooldownTo = -1;
+        [SerializeField] public bool Firing { get; set; }
+        [SerializeField] public bool AltFiring { get; set; }
+
+        protected float cooldownTo = -1;
         protected float timeLastShot = -1;
+        public UnityAction<float> BoostPlayer = delegate { };
+
+        protected Renderer[] modelRenderers;
+
+        protected Renderer[] ModelRenderers
+        {
+            get
+            {
+                if (modelRenderers == null)
+                    modelRenderers = GetComponentsInChildren<Renderer>();
+                return modelRenderers;
+            }
+        }
+
         protected virtual void Update()
         {
             if (Firing)
             {
-                if (Time.time >= CooldownTo)
+                if (Time.time >= cooldownTo)
                 {
-                    CooldownTo = Time.time + fireCooldown;
+                    cooldownTo = Time.time + fireCooldown;
                     Fire();
                 }
             }
             else if (AltFiring)
             {
-                if (Time.time >= CooldownTo)
+                if (Time.time >= cooldownTo)
                 {
-                    CooldownTo = Time.time + altFireCooldown;
+                    cooldownTo = Time.time + altFireCooldown;
                     AltFire();
                 }
             }
@@ -33,12 +49,23 @@ namespace Weapons
                 HandleNotFiring();
             }
         }
+
         protected virtual void OnEnable()
         {
             Firing = false;
         }
+
         protected virtual void HandleNotFiring() { }
         protected abstract void Fire();
         protected virtual void AltFire() { }
+
+        public virtual void SetModelVisible(bool visible)
+        {
+            foreach (var renderer in ModelRenderers)
+            {
+                if (renderer != null)
+                    renderer.enabled = visible;
+            }
+        }
     }
 }

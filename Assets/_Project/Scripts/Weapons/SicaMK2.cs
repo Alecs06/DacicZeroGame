@@ -1,15 +1,20 @@
 using Animancer;
 using EventBus;
 using HP;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace Weapons
 {
-    public class MeleeWeapon : WeaponBase
+    public class SicaMK2 : WeaponBase
     {
+        [SerializeField] Projectile projectile = new Projectile();
+        [SerializeField] float projectileVelocity = 80;
         [SerializeField] protected AnimationClip clip;
         protected AnimancerComponent animancer;
-        [SerializeField] float radius = 1, dist = 1;
+        [SerializeField] float radius = 0.7f, dist = 0.7f;
+
+        Projectile rb;
         protected void Awake()
         {
             animancer = GetComponent<AnimancerComponent>();
@@ -32,8 +37,20 @@ namespace Weapons
         }
         protected override void AltFire()
         {
-            Debug.Log("Hi guys");
+            rb = Instantiate(projectile, transform.position, transform.rotation);
+            rb.Owner = transform;
+            rb.velocity = projectileVelocity;
+            rb.damage = 1;
+            rb.gameObject.SetActive(true);
+            rb.OnExpire += onProjectileExpire;
         }
+
+        private void onProjectileExpire()
+        {
+            // if the sica projectile returns, override the long cooldown
+            cooldownTo = Time.time + 0.5f;
+        }
+
         private void OnDrawGizmosSelected()
         {
             Gizmos.DrawWireSphere(transform.position + dist * transform.forward, radius);
