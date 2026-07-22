@@ -12,6 +12,7 @@ public class Projectile : MonoBehaviour
 {
     public float velocity = 0;
     public int damage = 0;
+    public bool isEnhanced = false;
     public event Action OnExpire = delegate { };
     [SerializeField] protected Rigidbody ProjectileBody;
     [SerializeField] protected LayerMask obstructionMask = 1 << 0;
@@ -50,7 +51,6 @@ public class Projectile : MonoBehaviour
     }
     protected void OnDestroy()
     {
-        print("woaow");
         OnExpire.Invoke();
     }
 }

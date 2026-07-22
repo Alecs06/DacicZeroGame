@@ -9,24 +9,24 @@ namespace Weapons
         [SerializeField] protected float altFireCooldown;
         [SerializeField] public bool Firing { get; set; }
         [SerializeField] public bool AltFiring { get; set; }
-        protected float CooldownTo = -1;
+        protected float cooldownTo = -1;
         protected float timeLastShot = -1;
-        public UnityAction<float> boostPlayer = delegate { };
+        public UnityAction<float> BoostPlayer = delegate { };
         protected virtual void Update()
         {
             if (Firing)
             {
-                if (Time.time >= CooldownTo)
+                if (Time.time >= cooldownTo)
                 {
-                    CooldownTo = Time.time + fireCooldown;
+                    cooldownTo = Time.time + fireCooldown;
                     Fire();
                 }
             }
             else if (AltFiring)
             {
-                if (Time.time >= CooldownTo)
+                if (Time.time >= cooldownTo)
                 {
-                    CooldownTo = Time.time + altFireCooldown;
+                    cooldownTo = Time.time + altFireCooldown;
                     AltFire();
                 }
             }

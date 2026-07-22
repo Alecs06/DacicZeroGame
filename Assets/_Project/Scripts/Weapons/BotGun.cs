@@ -86,7 +86,7 @@ namespace Weapons
         protected override void Fire()
         {
             //reset the fireCooldown of the gun
-            CooldownTo = Time.time + fireCooldown;
+            cooldownTo = Time.time + fireCooldown;
             timeLastShot = Time.time;
             Vector3 dir = transform.forward;
             lineRenderer.enabled = true;

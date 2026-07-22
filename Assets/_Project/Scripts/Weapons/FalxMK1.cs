@@ -41,7 +41,7 @@ namespace Weapons
 
         private IEnumerator repeatedAltFireAction()
         {
-            boostPlayer.Invoke(boostForce);
+            BoostPlayer.Invoke(boostForce);
             animancer.Play(clip).Time = 0;
 
             HashSet<Transform> hitsThisLunge = new();

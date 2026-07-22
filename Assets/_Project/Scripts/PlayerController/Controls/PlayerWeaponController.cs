@@ -17,14 +17,14 @@ namespace PlayerController
             inputReader.Fire += OnFire;
             inputReader.AltFire += OnAltFire;
             inputReader.SwitchWeapon += OnSwitchWeapon;
-            weapons[selectedWeaponIndex].boostPlayer += OnBoostPlayer;
+            weapons[selectedWeaponIndex].BoostPlayer += OnBoostPlayer;
         }
         private void OnDisable()
         {
             inputReader.Fire -= OnFire;
             inputReader.AltFire -= OnAltFire;
             inputReader.SwitchWeapon -= OnSwitchWeapon;
-            weapons[selectedWeaponIndex].boostPlayer -= OnBoostPlayer;
+            weapons[selectedWeaponIndex].BoostPlayer -= OnBoostPlayer;
         }
         /// <summary>
         /// Takes in an input context for a certain selectedWeaponIndex. Displays an error log if the selectedWeaponIndex is not found.

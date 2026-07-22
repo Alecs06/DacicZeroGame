@@ -48,8 +48,7 @@ namespace Weapons
         private void onProjectileExpire()
         {
             // if the sica projectile returns, override the long cooldown
-            Debug.Log("we are so back");
-            CooldownTo = Time.time + 0.5f;
+            cooldownTo = Time.time + 0.5f;
         }
 
         private void OnDrawGizmosSelected()
