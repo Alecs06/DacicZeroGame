@@ -414,7 +414,7 @@ Transform:
   - {fileID: 685811877318736729}
   - {fileID: 22300066448090509}
   - {fileID: 1670086840361848845}
-  - {fileID: 139809460410115698}
+  - {fileID: 361757523948378168}
   - {fileID: 5766331725589260871}
   m_Father: {fileID: 4583501436427864276}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -761,7 +761,7 @@ MonoBehaviour:
   weapons:
   - {fileID: 3766815802039025068}
   - {fileID: 7704259871769142411}
-  - {fileID: 8950591308925358836}
+  - {fileID: 8701913408973221054}
 --- !u!114 &3464305454432268230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1318,7 +1318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505cca3f23a2a1e43bc99b3543758c35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapons.FalxMK2
---- !u!1001 &8161910782206516806
+--- !u!1001 &8480671617736171532
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1326,10 +1326,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6776431533047406821}
     m_Modifications:
-    - target: {fileID: 968852002482703538, guid: 3a4f207b412c5084ab5d958b14a3bf4a, type: 3}
-      propertyPath: projectile
-      value: 
-      objectReference: {fileID: 1473660337564438398, guid: 3fec734c918d546408bd54dbf238cf4c, type: 3}
     - target: {fileID: 8121218739952842804, guid: 3a4f207b412c5084ab5d958b14a3bf4a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1379,15 +1375,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a4f207b412c5084ab5d958b14a3bf4a, type: 3}
---- !u!4 &139809460410115698 stripped
+--- !u!4 &361757523948378168 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8121218739952842804, guid: 3a4f207b412c5084ab5d958b14a3bf4a, type: 3}
-  m_PrefabInstance: {fileID: 8161910782206516806}
+  m_PrefabInstance: {fileID: 8480671617736171532}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8950591308925358836 stripped
+--- !u!114 &8701913408973221054 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 968852002482703538, guid: 3a4f207b412c5084ab5d958b14a3bf4a, type: 3}
-  m_PrefabInstance: {fileID: 8161910782206516806}
+  m_PrefabInstance: {fileID: 8480671617736171532}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
