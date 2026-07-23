@@ -9,6 +9,7 @@ namespace Weapons
     public class FalxMK2 : WeaponBase
     {
         [SerializeField] protected AnimationClip clip;
+        [SerializeField] protected AnimationClip pokeClip;
         protected AnimancerComponent animancer;
         [SerializeField] float radius = 1, dist = 1;
         protected void Awake()
@@ -31,7 +32,7 @@ namespace Weapons
 
         private void InitialSpinAttack()
         {
-            animancer.Play(clip).Time = 0;
+            //animancer.Play(clip).Time = 0;
             CreateSphereAttack(3 * radius, 0f, 1);
         }
 
@@ -42,7 +43,7 @@ namespace Weapons
             yield return new WaitForSeconds(0.15f);
 
             BoostPlayer.Invoke(boostForce);
-            animancer.Play(clip).Time = 0;
+            animancer.Play(pokeClip).Time = 0;
 
             HashSet<Transform> hitsThisLunge = new();
 
@@ -61,3 +62,5 @@ namespace Weapons
         }
     }
 }
+
+// 70 0 60

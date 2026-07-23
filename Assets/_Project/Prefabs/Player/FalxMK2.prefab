@@ -208,5 +208,6 @@ MonoBehaviour:
   fireCooldown: 1
   altFireCooldown: 3
   clip: {fileID: 7400000, guid: 6ffc3fee10117ca43b524b4439eb840b, type: 2}
+  pokeClip: {fileID: 7400000, guid: 2fa1d71805bcffc42aa737f720ee571d, type: 2}
   radius: 1
   dist: 1

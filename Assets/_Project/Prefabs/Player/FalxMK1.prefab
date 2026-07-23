@@ -171,7 +171,7 @@ Transform:
   m_GameObject: {fileID: 8629466349362021416}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -208,5 +208,6 @@ MonoBehaviour:
   fireCooldown: 1
   altFireCooldown: 2
   clip: {fileID: 7400000, guid: 6ffc3fee10117ca43b524b4439eb840b, type: 2}
+  pokeClip: {fileID: 7400000, guid: 2fa1d71805bcffc42aa737f720ee571d, type: 2}
   radius: 1
   dist: 1

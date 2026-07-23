@@ -8,6 +8,7 @@ namespace Weapons
     public class FalxMK1 : WeaponBase
     {
         [SerializeField] protected AnimationClip clip;
+        [SerializeField] protected AnimationClip pokeClip;
         protected AnimancerComponent animancer;
 
         [SerializeField] float radius = 1, dist = 1;
@@ -35,7 +36,8 @@ namespace Weapons
         private IEnumerator RepeatedAltFireAction()
         {
             BoostPlayer.Invoke(boostForce);
-            animancer.Play(clip).Time = 0;
+            animancer.Stop();
+            animancer.Play(pokeClip).Time = 0;
 
             HashSet<Transform> hitsThisLunge = new();
 
