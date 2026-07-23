@@ -60,9 +60,5 @@ namespace Weapons
                 CreateSphereAttack(5, 0, 1);
             }
         }
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.DrawWireSphere(transform.position + dist * transform.forward, radius);
-        }
     }
 }

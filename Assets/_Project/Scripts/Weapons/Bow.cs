@@ -9,17 +9,18 @@ namespace Weapons
 {
     public class Bow: WeaponBase
     {
-        [SerializeField] Projectile projectile;
-        [SerializeField] float projectileVelocity;
+        [SerializeField] protected Projectile projectile;
+        [SerializeField] protected float projectileVelocity;
         [SerializeField] protected AnimationClip clip;
+        [SerializeField] protected int ammo = 10;
         protected AnimancerComponent animancer;
-        float maxCharge = 100;
-        [SerializeField] float chargeTime = 0.7f;
-        float chargeIncrement = -1f;
-        float currentCharge = 0;
-        string chargeType = string.Empty;
+        protected float maxCharge = 100;
+        [SerializeField] protected float chargeTime = 0.7f;
+        protected float chargeIncrement = -1f;
+        protected float currentCharge = 0;
+        protected string chargeType = string.Empty;
 
-        Projectile rb;
+        protected Projectile rb;
         protected void Awake()
         {
             animancer = GetComponent<AnimancerComponent>();
@@ -31,7 +32,7 @@ namespace Weapons
 
         protected override void Update()
         {
-            if (Firing && !AltFiring)
+            if (Firing && !AltFiring && ammo >= 1)
             {
                 if (Time.time >= cooldownTo)
                 {
@@ -40,7 +41,7 @@ namespace Weapons
                     chargeType = "fire";
                 }
             }
-            else if (AltFiring && !Firing)
+            else if (AltFiring && !Firing && ammo >= 3)
             {
                 if (Time.time >= cooldownTo)
                 {
@@ -72,6 +73,7 @@ namespace Weapons
 
             cooldownTo = Time.time + fireCooldown;
             shootArrow(currentCharge);
+            ammo -=1;
         }
         protected override void AltFire()
         {
@@ -84,6 +86,8 @@ namespace Weapons
             shootArrow(currentCharge);
             shootArrow(currentCharge, SIDE_ARROW_YAW_OFFSET);
             shootArrow(currentCharge, SIDE_ARROW_YAW_OFFSET * (-1));
+
+            ammo -= 3;
         }
 
         protected void shootArrow(float charge, float yawOffset = 0)
