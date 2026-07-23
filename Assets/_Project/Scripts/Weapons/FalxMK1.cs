@@ -49,6 +49,10 @@ namespace Weapons
                 yield return new WaitForSeconds(hitCheckInterval);
                 elapsed += hitCheckInterval;
             }
+            if (IsEnhanced)
+            {
+                CreateSphereAttack(5, 0, 1);
+            }
         }
 
         private void OnDrawGizmosSelected()

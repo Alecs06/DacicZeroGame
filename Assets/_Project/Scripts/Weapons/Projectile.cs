@@ -17,6 +17,8 @@ public class Projectile : MonoBehaviour
     [SerializeField] protected Rigidbody ProjectileBody;
     [SerializeField] protected LayerMask obstructionMask = 1 << 0;
     protected List<Collider> HitEnemies = new List<Collider>();
+    public bool hasGravity = false;
+    public float yawOffset = 0;
 
     protected Transform owner;
     LayerMask targetMask;
@@ -41,8 +43,9 @@ public class Projectile : MonoBehaviour
     }
     protected virtual void OnEnable()
     {
-        ProjectileBody.AddRelativeForce(Vector3.forward * velocity);
-        ProjectileBody.useGravity = false;
+        Vector3 direction = Quaternion.Euler(0f, yawOffset, 0f) * Vector3.forward;
+        ProjectileBody.AddRelativeForce(direction * velocity);
+        ProjectileBody.useGravity = hasGravity;
     }
     protected virtual void OnTriggerEnter(Collider other)
     {

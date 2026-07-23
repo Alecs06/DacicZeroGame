@@ -187,5 +187,5 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
-  maxBounces: 1
+  maxBounces: 0
   bounceRadiusMultiplier: 1

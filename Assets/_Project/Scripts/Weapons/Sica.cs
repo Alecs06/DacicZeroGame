@@ -31,6 +31,7 @@ namespace Weapons
             rb.Owner = transform;
             rb.velocity = projectileVelocity;
             rb.damage = 1;
+            rb.isEnhanced = IsEnhanced;
             rb.gameObject.SetActive(true);
             rb.OnExpire += onProjectileExpire;
         }

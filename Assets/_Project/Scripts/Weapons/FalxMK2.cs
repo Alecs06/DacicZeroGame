@@ -32,7 +32,7 @@ namespace Weapons
 
         private void InitialSpinAttack()
         {
-            //animancer.Play(clip).Time = 0;
+            animancer.Play(clip).Time = 0;
             CreateSphereAttack(3 * radius, 0f, 1);
         }
 
@@ -55,6 +55,10 @@ namespace Weapons
                 yield return new WaitForSeconds(hitCheckInterval);
                 elapsed += hitCheckInterval;
             }
+            if (IsEnhanced)
+            {
+                CreateSphereAttack(5, 0, 1);
+            }
         }
         private void OnDrawGizmosSelected()
         {
@@ -62,5 +66,3 @@ namespace Weapons
         }
     }
 }
-
-// 70 0 60
