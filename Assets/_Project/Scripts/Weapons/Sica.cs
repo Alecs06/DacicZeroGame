@@ -6,10 +6,10 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Weapons
 {
-    public class SicaMK2 : WeaponBase
+    public class Sica: WeaponBase
     {
-        [SerializeField] Projectile projectile = new Projectile();
-        [SerializeField] float projectileVelocity = 80;
+        [SerializeField] Projectile projectile;
+        [SerializeField] float projectileVelocity;
         [SerializeField] protected AnimationClip clip;
         protected AnimancerComponent animancer;
         [SerializeField] float radius = 0.7f, dist = 0.7f;
@@ -23,17 +23,7 @@ namespace Weapons
         protected override void Fire()
         {
             animancer.Play(clip).Time = 0;
-            Collider[] colliders = new Collider[10];
-            int nrOfHits = Physics.OverlapSphereNonAlloc(transform.position + dist * transform.forward, radius, colliders, GlobalSettings.TargetMasks[gameObject.layer]);
-            HashSet<Transform> hits = new();
-            for (int i = 0; i < nrOfHits; i++)
-            {
-                if (!hits.Contains(colliders[i].transform.root))
-                {
-                    hits.Add(colliders[i].transform.root);
-                    EventBus<TakeDamage>.Raise(colliders[i].transform.root.GetInstanceID(), new TakeDamage(1, transform.root, colliders[i]));
-                }
-            }
+            CreateSphereAttack(radius, dist, 1);
         }
         protected override void AltFire()
         {
@@ -41,6 +31,7 @@ namespace Weapons
             rb.Owner = transform;
             rb.velocity = projectileVelocity;
             rb.damage = 1;
+            rb.isEnhanced = IsEnhanced;
             rb.gameObject.SetActive(true);
             rb.OnExpire += onProjectileExpire;
         }

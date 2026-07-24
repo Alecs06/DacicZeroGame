@@ -154,9 +154,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8121218739952842804}
   - component: {fileID: 8928841742684204096}
-  - component: {fileID: 968852002482703538}
+  - component: {fileID: 4372808748167503166}
   m_Layer: 6
-  m_Name: SicaMK1
+  m_Name: Bow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -193,7 +193,7 @@ MonoBehaviour:
   _Animator: {fileID: 6256484915391637458}
   _Transitions: {fileID: 0}
   _ActionOnDisable: 0
---- !u!114 &968852002482703538
+--- !u!114 &4372808748167503166
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -202,13 +202,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8629466349362021416}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee7fb0d9a83a88c4a805f26716fe774d, type: 3}
+  m_Script: {fileID: 11500000, guid: 0144da8b8ca53c143a67e2a375be2027, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Weapons.SicaMK1
-  fireCooldown: 0.5
-  altFireCooldown: 10
-  projectile: {fileID: 115248252639209875, guid: 405c88ba08fea774baa2368f644c2ba4, type: 3}
-  projectileVelocity: 20
+  m_EditorClassIdentifier: Assembly-CSharp::Weapons.Bow
+  fireCooldown: 1
+  altFireCooldown: 2
+  projectile: {fileID: 3828718443384397336, guid: 768e04c6db2aaea47a540174ecf69776, type: 3}
+  projectileVelocity: 50
   clip: {fileID: 7400000, guid: 6ffc3fee10117ca43b524b4439eb840b, type: 2}
-  radius: 0.7
-  dist: 0.7
+  chargeTime: 0.7
