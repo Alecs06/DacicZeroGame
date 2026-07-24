@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using Weapons;
 namespace PlayerController
 {
     public class PlayerWeaponController : MonoBehaviour
     {
+        [SerializeField] Rigidbody PlayerBody;
         [SerializeField] protected InputReader inputReader;
         [SerializeField] protected List<WeaponBase> weapons = new();
         protected int selectedWeaponIndex = 0;
@@ -14,11 +16,19 @@ namespace PlayerController
         {
             inputReader.Fire += OnFire;
             inputReader.AltFire += OnAltFire;
+            inputReader.SwitchWeapon += OnSwitchWeapon;
+            weapons[selectedWeaponIndex].BoostPlayer += OnBoostPlayer;
+            for (int i = 1; i < weapons.Count; i++)
+            {
+                weapons[i].SetModelVisible(false);
+            }
         }
         private void OnDisable()
         {
             inputReader.Fire -= OnFire;
             inputReader.AltFire -= OnAltFire;
+            inputReader.SwitchWeapon -= OnSwitchWeapon;
+            weapons[selectedWeaponIndex].BoostPlayer -= OnBoostPlayer;
         }
         /// <summary>
         /// Takes in an input context for a certain selectedWeaponIndex. Displays an error log if the selectedWeaponIndex is not found.
@@ -56,6 +66,19 @@ namespace PlayerController
             {
                 weapons[selectedWeaponIndex].AltFiring = false;
             }
+        }
+
+        protected void OnBoostPlayer(float velocity)
+        {
+            PlayerBody.AddForce(transform.forward * velocity);
+        }
+        protected void OnSwitchWeapon(int weaponNumber)
+        {
+            weapons[selectedWeaponIndex].Firing = false;
+            weapons[selectedWeaponIndex].AltFiring = false;
+            weapons[selectedWeaponIndex].SetModelVisible(false);
+            weapons[weaponNumber].SetModelVisible(true);
+            selectedWeaponIndex = weaponNumber;
         }
     }
 }
